@@ -1,0 +1,867 @@
+<!-- Автор: Frean_zy -->
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <!-- Описание: базовая информация и адаптивность -->
+    <meta charset="UTF-8">
+    <title>Trener personalny – forma, zdrowie i energia</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Indywidualne treningi personalne, plany treningowe i żywieniowe. Zadbaj o formę z profesjonalnym trenerem.">
+
+    <!-- Описание: стили для одностраничного сайта тренера -->
+    <style>
+        /* Автор: Frean_zy */
+        /* Общие переменные для цветов и размеров */
+        :root {
+            --primary: #1f7aec;
+            --primary-dark: #1556a8;
+            --accent: #13c19f;
+            --bg-light: #f4f7ff;
+            --text-main: #1d1f23;
+            --text-muted: #6b7280;
+            --max-width: 1100px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            color: var(--text-main);
+            background: #ffffff;
+            line-height: 1.6;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .container {
+            width: 100%;
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: #ffffffdd;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0;
+        }
+
+        .logo {
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            font-size: 1.05rem;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        nav ul {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+        }
+
+        nav a {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        .btn-header {
+            padding: 8px 16px;
+            border-radius: 999px;
+            border: none;
+            background: var(--primary);
+            color: #ffffff;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .hero {
+            padding: 60px 0 40px;
+            background: radial-gradient(circle at top left, #e0f2fe 0, #ffffff 55%);
+        }
+
+        .hero-inner {
+            display: grid;
+            grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+            gap: 32px;
+            align-items: center;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            border: 1px solid #bfdbfe;
+            background: #eff6ff;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .hero-title {
+            font-size: clamp(2.1rem, 3vw, 2.6rem);
+            margin-bottom: 12px;
+        }
+
+        .hero-highlight {
+            color: var(--primary);
+        }
+
+        .hero-text {
+            color: var(--text-muted);
+            margin-bottom: 18px;
+        }
+
+        .hero-list {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .hero-list li {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+            margin-bottom: 6px;
+        }
+
+        .hero-icon {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #dcfce7;
+            color: #15803d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            flex-shrink: 0;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .btn-primary {
+            padding: 12px 24px;
+            border-radius: 999px;
+            background: var(--primary);
+            color: #ffffff;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .btn-secondary {
+            padding: 10px 18px;
+            border-radius: 999px;
+            background: #ffffff;
+            color: var(--primary);
+            border: 1px solid #bfdbfe;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .hero-note {
+            margin-top: 6px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .hero-image {
+            position: relative;
+            min-height: 260px;
+        }
+
+        .hero-card {
+            position: absolute;
+            inset: 0;
+            margin: auto;
+            width: 90%;
+            max-width: 360px;
+            border-radius: 24px;
+            padding: 18px;
+            background: #0f172a;
+            color: #e5e7eb;
+            box-shadow: 0 20px 45px rgba(15, 23, 42, 0.7);
+        }
+
+        .hero-card-top {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+        }
+
+        .hero-card-name {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .hero-card-tag {
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 999px;
+            background: rgba(15, 118, 110, 0.3);
+            color: #6ee7b7;
+        }
+
+        .hero-card-metrics {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 14px;
+            font-size: 0.8rem;
+        }
+
+        .hero-card-metric strong {
+            display: block;
+            font-size: 1rem;
+            color: #e5e7eb;
+        }
+
+        .hero-card-plan {
+            border-radius: 16px;
+            padding: 10px 12px;
+            background: #020617;
+            font-size: 0.85rem;
+        }
+
+        .hero-card-plan span {
+            color: #22c55e;
+            font-weight: 600;
+        }
+
+        section {
+            padding: 48px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 1.6rem;
+            margin-bottom: 8px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 26px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            border-radius: 18px;
+            padding: 18px 18px 20px;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 8px 22px rgba(15, 23, 42, 0.04);
+        }
+
+        .card h3 {
+            font-size: 1rem;
+            margin-bottom: 6px;
+        }
+
+        .card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .card ul {
+            list-style: none;
+            font-size: 0.9rem;
+        }
+
+        .card ul li {
+            margin-bottom: 4px;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .price-card {
+            border-radius: 18px;
+            padding: 20px;
+            background: var(--bg-light);
+            border: 1px solid #dbeafe;
+        }
+
+        .price-card h3 {
+            font-size: 1rem;
+            margin-bottom: 8px;
+        }
+
+        .price-value {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 6px;
+        }
+
+        .price-note {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        .timeline {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .timeline-step {
+            border-radius: 16px;
+            padding: 16px;
+            background: #ffffff;
+            border: 1px dashed #d1d5db;
+            font-size: 0.9rem;
+        }
+
+        .timeline-step strong {
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .contact {
+            background: #020617;
+            color: #e5e7eb;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+            gap: 26px;
+            align-items: center;
+        }
+
+        .contact p {
+            font-size: 0.95rem;
+            color: #9ca3af;
+            margin-bottom: 10px;
+        }
+
+        .contact-highlight {
+            color: #e5e7eb;
+            font-weight: 600;
+        }
+
+        .contact-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 6px;
+        }
+
+        .tag {
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: #111827;
+            font-size: 0.8rem;
+        }
+
+        form {
+            display: grid;
+            gap: 10px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+        }
+
+        label {
+            font-size: 0.85rem;
+            margin-bottom: 2px;
+            display: block;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 9px 11px;
+            border-radius: 10px;
+            border: 1px solid #4b5563;
+            background: #020617;
+            color: #e5e7eb;
+            font-size: 0.9rem;
+            font-family: inherit;
+        }
+
+        textarea {
+            min-height: 80px;
+        }
+
+        .btn-form {
+            padding: 11px 20px;
+            border-radius: 999px;
+            border: none;
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            color: #ffffff;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+
+        .form-note {
+            font-size: 0.75rem;
+            color: #9ca3af;
+        }
+
+        .form-error {
+            font-size: 0.78rem;
+            color: #fecaca;
+        }
+
+        footer {
+            padding: 18px 0 24px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        @media (max-width: 900px) {
+            .hero-inner {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .hero-image {
+                order: -1;
+            }
+
+            .grid-3,
+            .pricing-grid,
+            .timeline {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .contact-grid {
+                grid-template-columns: minmax(0, 1fr);
+            }
+        }
+
+        @media (max-width: 640px) {
+            nav ul {
+                display: none;
+            }
+
+            .hero {
+                padding-top: 40px;
+            }
+
+            .grid-3,
+            .pricing-grid,
+            .timeline {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .form-row {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Шапка с логотипом тренера и ссылками по секциям -->
+    <header>
+        <div class="container header-inner">
+            <div class="logo">COACH <span>FIT</span></div>
+            <nav aria-label="Główna nawigacja">
+                <ul>
+                    <li><a href="#about">O mnie</a></li>
+                    <li><a href="#offer">Oferta</a></li>
+                    <li><a href="#pricing">Pakiety</a></li>
+                    <li><a href="#contact">Kontakt</a></li>
+                </ul>
+            </nav>
+            <button class="btn-header" type="button" data-scroll="#contact">Umów konsultację</button>
+        </div>
+    </header>
+
+    <!-- Герой‑секция: ключевое предложение тренера -->
+    <section class="hero">
+        <div class="container hero-inner">
+            <div>
+                <div class="hero-badge">
+                    <span>Indywidualne treningi • Online i stacjonarnie</span>
+                </div>
+                <h1 class="hero-title">
+                    Zbuduj formę z <span class="hero-highlight">trenerem personalnym</span>
+                </h1>
+                <p class="hero-text">
+                    Pomagam zapracowanym osobom poprawić sylwetkę, zdrowie i samopoczucie bez
+                    ekstremalnych diet i planów, których nie da się utrzymać na dłużej.
+                </p>
+                <ul class="hero-list">
+                    <li><span class="hero-icon">✓</span> Plany treningowe dopasowane do Twojego grafiku.</li>
+                    <li><span class="hero-icon">✓</span> Realistyczne podejście do diety i regeneracji.</li>
+                    <li><span class="hero-icon">✓</span> Stałe wsparcie i kontakt między treningami.</li>
+                </ul>
+                <div class="hero-actions">
+                    <button class="btn-primary" type="button" data-scroll="#contact">Umów pierwszą rozmowę</button>
+                    <button class="btn-secondary" type="button" data-scroll="#pricing">Zobacz pakiety</button>
+                </div>
+                <p class="hero-note">
+                    Pierwsza rozmowa online – bez zobowiązań, ok. 20 minut.
+                </p>
+            </div>
+
+            <div class="hero-image" aria-hidden="true">
+                <div class="hero-card">
+                    <div class="hero-card-top">
+                        <div>
+                            <div class="hero-card-name">Marek Kowalski</div>
+                            <div style="font-size:0.8rem;color:#9ca3af;">Trener personalny</div>
+                        </div>
+                        <div class="hero-card-tag">8+ lat doświadczenia</div>
+                    </div>
+                    <div class="hero-card-metrics">
+                        <div class="hero-card-metric">
+                            <strong>120+</strong>
+                            przemian sylwetki
+                        </div>
+                        <div class="hero-card-metric">
+                            <strong>4.9 / 5</strong>
+                            opinie klientów
+                        </div>
+                    </div>
+                    <div class="hero-card-plan">
+                        Plan współpracy:
+                        <br>
+                        <span>analiza celu</span> → dopasowany plan treningowy →
+                        <span>regularne raporty</span> i korekty → trwały efekt, a nie chwilowa dieta cud.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция "Обо мне" и подход к работе -->
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title">O mnie</h2>
+            <p class="section-subtitle">
+                Łączę wiedzę treningową z praktycznym podejściem do życia – plan budujemy tak,
+                aby pasował do Twojej pracy, rodziny i obowiązków.
+            </p>
+
+            <div class="grid-3">
+                <article class="card">
+                    <h3>Doświadczenie</h3>
+                    <p>
+                        Pracuję jako trener personalny od 2016 roku. Prowadziłem treningi na siłowni,
+                        online i w plenerze.
+                    </p>
+                    <ul>
+                        <li>• praca z osobami początkującymi</li>
+                        <li>• przygotowanie do redukcji i budowy masy</li>
+                        <li>• wsparcie po przerwach treningowych</li>
+                    </ul>
+                </article>
+
+                <article class="card">
+                    <h3>Jak pracuję</h3>
+                    <p>
+                        Zanim zaproponuję plan, pytam o Twoje zdrowie, grafik, przeszłość treningową
+                        i realny poziom motywacji.
+                    </p>
+                    <ul>
+                        <li>• prosta komunikacja, bez żargonu</li>
+                        <li>• realistyczne cele i etapy</li>
+                        <li>• stały kontakt między treningami</li>
+                    </ul>
+                </article>
+
+                <article class="card">
+                    <h3>Dla kogo</h3>
+                    <p>
+                        Współpracuję głównie z osobami, które dużo pracują i chcą wreszcie uporządkować
+                        trening i dietę.
+                    </p>
+                    <ul>
+                        <li>• pracownicy biurowi i freelancerzy</li>
+                        <li>• młodzi rodzice</li>
+                        <li>• osoby wracające po kontuzji (po konsultacji z lekarzem)</li>
+                    </ul>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция "Предложение" -->
+    <section id="offer">
+        <div class="container">
+            <h2 class="section-title">Jak możemy współpracować</h2>
+            <p class="section-subtitle">
+                Wybierz formę, która najlepiej pasuje do Twojego stylu życia. Wszystkie opcje obejmują
+                indywidualne podejście i kontakt ze mną.
+            </p>
+
+            <div class="timeline">
+                <div class="timeline-step">
+                    <strong>1. Konsultacja startowa</strong>
+                    Krótka rozmowa online lub na siłowni: cele, historia zdrowia, dotychczasowe treningi,
+                    preferencje żywieniowe.
+                </div>
+                <div class="timeline-step">
+                    <strong>2. Plan działania</strong>
+                    Otrzymujesz dopasowany plan treningowy + proste wytyczne żywieniowe. Ustalamy,
+                    jak często raportujesz postępy.
+                </div>
+                <div class="timeline-step">
+                    <strong>3. Wsparcie i korekty</strong>
+                    Co kilka tygodni analizujemy efekty, poprawiamy plan, odpowiadam na pytania,
+                    motywuję i pilnuję konsekwencji.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция "Пакеты" -->
+    <section id="pricing">
+        <div class="container">
+            <h2 class="section-title">Pakiety współpracy</h2>
+            <p class="section-subtitle">
+                Przykładowe pakiety – w praktyce dopasowujemy zakres i intensywność do Twoich potrzeb.
+            </p>
+
+            <div class="pricing-grid">
+                <article class="price-card">
+                    <h3>Start</h3>
+                    <div class="price-value">od 250 zł</div>
+                    <div class="price-note">jednorazowa konsultacja + plan</div>
+                    <ul>
+                        <li>• 60 min konsultacji</li>
+                        <li>• indywidualny plan treningowy na 4 tygodnie</li>
+                        <li>• podstawowe zalecenia żywieniowe</li>
+                    </ul>
+                </article>
+
+                <article class="price-card">
+                    <h3>Online 1‑na‑1</h3>
+                    <div class="price-value">od 450 zł / mies.</div>
+                    <div class="price-note">prowadzenie online</div>
+                    <ul>
+                        <li>• plan treningowy aktualizowany co 4 tygodnie</li>
+                        <li>• kontakt przez komunikator</li>
+                        <li>• cotygodniowe mini‑raporty</li>
+                    </ul>
+                </article>
+
+                <article class="price-card">
+                    <h3>Premium</h3>
+                    <div class="price-value">od 750 zł / mies.</div>
+                    <div class="price-note">online + treningi stacjonarne</div>
+                    <ul>
+                        <li>• wszystko z pakietu Online</li>
+                        <li>• dodatkowe treningi na siłowni</li>
+                        <li>• bardziej szczegółowe monitorowanie postępów</li>
+                    </ul>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Контакт + форма записи -->
+    <section id="contact" class="contact">
+        <div class="container contact-grid">
+            <div>
+                <h2 class="section-title" style="text-align:left;">Umów pierwszą rozmowę</h2>
+                <p>
+                    Napisz kilka słów o sobie, swoim celu i możliwościach czasowych.
+                    Odezwę się z propozycją terminu krótkiej rozmowy wstępnej.
+                </p>
+                <p>
+                    <span class="contact-highlight">E‑mail:</span> trener@example.com<br>
+                    <span class="contact-highlight">Instagram:</span> @coach.fit
+                </p>
+                <div class="contact-tags">
+                    <div class="tag">Redukcja wagi</div>
+                    <div class="tag">Budowa masy</div>
+                    <div class="tag">Zdrowy kręgosłup</div>
+                    <div class="tag">Więcej energii na co dzień</div>
+                </div>
+                <p class="form-note">
+                    * Ten formularz jest przykładowy – w prawdziwym wdrożeniu można go połączyć
+                    z systemem zapisów, e‑mailem lub komunikatorem.
+                </p>
+            </div>
+
+            <div>
+                <form id="coach-form" novalidate>
+                    <div class="form-row">
+                        <div>
+                            <label for="c-name">Imię*</label>
+                            <input id="c-name" name="name" type="text" placeholder="Twoje imię">
+                            <div class="form-error" data-error-for="c-name"></div>
+                        </div>
+                        <div>
+                            <label for="c-email">E‑mail*</label>
+                            <input id="c-email" name="email" type="email" placeholder="you@example.com">
+                            <div class="form-error" data-error-for="c-email"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div>
+                            <label for="c-goal">Główny cel*</label>
+                            <select id="c-goal" name="goal">
+                                <option value="">Wybierz cel</option>
+                                <option value="weight">Redukcja wagi</option>
+                                <option value="muscle">Budowa masy</option>
+                                <option value="health">Zdrowie / kręgosłup</option>
+                                <option value="energy">Więcej energii</option>
+                            </select>
+                            <div class="form-error" data-error-for="c-goal"></div>
+                        </div>
+                        <div>
+                            <label for="c-time">Ile czasu masz tygodniowo?</label>
+                            <input id="c-time" name="time" type="text" placeholder="np. 2–3 treningi po 60 min">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="c-message">Kilka słów o Twojej sytuacji</label>
+                        <textarea id="c-message" name="message" placeholder="Np. praca siedząca, kontuzje, wcześniejsze doświadczenia z siłownią itp."></textarea>
+                    </div>
+
+                    <button class="btn-form" type="submit">Wyślij zgłoszenie</button>
+                    <p class="form-note">
+                        Po wysłaniu formularza odezwę się do Ciebie mailowo w ciągu 24 godzin.
+                    </p>
+                    <div class="form-error" data-error-for="c-form"></div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Подвал с простой подписью -->
+    <footer>
+        <div class="container footer-inner">
+            <div>© 2026 COACH FIT – strona pokazowa.</div>
+            <div>Przykładowa wizytówka trenera personalnego.</div>
+        </div>
+    </footer>
+
+    <!-- Скрипт: плавный скролл и валидация формы -->
+    <script>
+        // Автор: Frean_zy
+
+        // Плавный скролл к секциям по клику на кнопки с атрибутом data-scroll
+        document.querySelectorAll("[data-scroll]").forEach(function (btn) {
+            btn.addEventListener("click", function () {
+                var targetSelector = btn.getAttribute("data-scroll");
+                var target = document.querySelector(targetSelector);
+                if (target) {
+                    target.scrollIntoView({ behavior: "smooth" });
+                }
+            });
+        });
+
+        // Простая валидация формы контакта для тренера
+        var coachForm = document.getElementById("coach-form");
+
+        coachForm.addEventListener("submit", function (event) {
+            event.preventDefault(); // Блокируем стандартную отправку
+
+            clearErrors();
+
+            var name = coachForm.name.value.trim();
+            var email = coachForm.email.value.trim();
+            var goal = coachForm.goal.value;
+
+            var hasError = false;
+
+            if (!name) {
+                showError("c-name", "Podaj imię.");
+                hasError = true;
+            }
+
+            if (!email || !email.includes("@")) {
+                showError("c-email", "Podaj poprawny adres e‑mail.");
+                hasError = true;
+            }
+
+            if (!goal) {
+                showError("c-goal", "Wybierz główny cel.");
+                hasError = true;
+            }
+
+            if (hasError) {
+                showError("c-form", "Sprawdź poprawność danych w formularzu.");
+                return;
+            }
+
+            alert("Dziękuję za wiadomość! Odpowiem na e‑mail w ciągu 24 godzin.");
+            coachForm.reset();
+        });
+
+        // Функция для отображения текста ошибки под нужным полем
+        function showError(id, message) {
+            var el = document.querySelector('[data-error-for="' + id + '"]');
+            if (el) {
+                el.textContent = message;
+            }
+        }
+
+        // Функция для очистки текста всех ошибок
+        function clearErrors() {
+            document.querySelectorAll(".form-error").forEach(function (el) {
+                el.textContent = "";
+            });
+        }
+    </script>
+</body>
+</html>

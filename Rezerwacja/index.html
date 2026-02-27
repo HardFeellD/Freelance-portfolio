@@ -1,0 +1,566 @@
+<!-- Автор: Frean_zy -->
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <!-- Описание: базовые метаданные и адаптивность страницы -->
+    <meta charset="UTF-8">
+    <title>Rezerwacja wizyty online</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Prosty moduł rezerwacji wizyt online z formularzem, walidacją i podsumowaniem zgłoszenia.">
+
+    <!-- Описание: стили для централизованного модуля бронирования -->
+    <style>
+        /* Общие цветовые переменные и ширина контейнера */
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --accent: #22c55e;
+            --bg: #0f172a;
+            --card-bg: #020617;
+            --text-main: #e5e7eb;
+            --text-muted: #9ca3af;
+            --max-width: 960px;
+        }
+
+        /* Сброс отступов и базовое оформление */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: radial-gradient(circle at top, #1e293b 0, #020617 55%);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 32px 16px;
+        }
+
+        /* Центрирующий контейнер для всей карточки */
+        .shell {
+            width: 100%;
+            max-width: var(--max-width);
+        }
+
+        /* Карточка модуля с тенью и скруглёнными углами */
+        .card {
+            background: rgba(15, 23, 42, 0.96);
+            border-radius: 24px;
+            border: 1px solid rgba(148, 163, 184, 0.4);
+            box-shadow: 0 24px 60px rgba(15, 23, 42, 0.9);
+            overflow: hidden;
+        }
+
+        /* Верхняя «шапка» карточки с названием сервиса */
+        .card-header {
+            padding: 18px 22px;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.4);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 14px;
+            background: radial-gradient(circle at top left, #1d4ed8 0, #0f172a 55%);
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .card-subtitle {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Индикатор статуса приёма заявок */
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8rem;
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: rgba(22, 163, 74, 0.12);
+            color: #bbf7d0;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #22c55e;
+        }
+
+        /* Основная сетка: слева текст/инфо, справа форма */
+        .card-body {
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
+            gap: 26px;
+            padding: 22px;
+        }
+
+        /* Левая колонка с описанием и подсказками */
+        .info-block h2 {
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+        }
+
+        .info-block p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .info-list {
+            list-style: none;
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+        }
+
+        .info-list li {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 6px;
+            color: #e5e7eb;
+        }
+
+        .info-icon {
+            width: 18px;
+            height: 18px;
+            border-radius: 999px;
+            background: rgba(56, 189, 248, 0.16);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.78rem;
+            color: #38bdf8;
+            flex-shrink: 0;
+        }
+
+        .info-note {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* Блок с «быстрыми» способами связи (чипы) */
+        .channels {
+            margin-top: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .channel-chip {
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: #020617;
+            border: 1px solid rgba(148, 163, 184, 0.4);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* Правая колонка — сама форма */
+        form {
+            display: grid;
+            gap: 10px;
+            background: var(--card-bg);
+            border-radius: 18px;
+            padding: 16px 16px 18px;
+            border: 1px solid rgba(148, 163, 184, 0.4);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+        }
+
+        label {
+            display: block;
+            font-size: 0.85rem;
+            margin-bottom: 3px;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 9px 11px;
+            border-radius: 10px;
+            border: 1px solid #4b5563;
+            background: #020617;
+            color: #e5e7eb;
+            font-size: 0.9rem;
+            font-family: inherit;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: #6b7280;
+        }
+
+        /* Сообщения об ошибках под полями формы */
+        .form-error {
+            font-size: 0.78rem;
+            color: #fecaca;
+            margin-top: 2px;
+            min-height: 14px;
+        }
+
+        .form-note {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+
+        /* Кнопка отправки формы */
+        .btn-submit {
+            padding: 11px 20px;
+            border-radius: 999px;
+            border: none;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            justify-self: flex-start;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-submit span {
+            font-size: 1.1rem;
+        }
+
+        /* Блок для вывода «подтверждения заявки» */
+        .summary {
+            margin-top: 10px;
+            border-radius: 12px;
+            padding: 10px 12px;
+            background: rgba(22, 163, 74, 0.08);
+            border: 1px solid rgba(34, 197, 94, 0.4);
+            font-size: 0.85rem;
+            color: #bbf7d0;
+            display: none;
+        }
+
+        .summary strong {
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        /* Нижняя плашка с мини‑подписью */
+        .card-footer {
+            padding: 10px 22px 14px;
+            border-top: 1px solid rgba(148, 163, 184, 0.4);
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 900px) {
+            .card-body {
+                grid-template-columns: minmax(0, 1fr);
+            }
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding-top: 24px;
+            }
+
+            .card-body {
+                padding: 16px;
+            }
+
+            .card-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .form-row {
+                grid-template-columns: minmax(0, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Внешний контейнер, чтобы центрировать карточку по ширине -->
+    <div class="shell">
+        <!-- Основная карточка модуля бронирования -->
+        <div class="card" aria-label="Moduł rezerwacji wizyty online">
+            <!-- Верхний блок с названием сервиса и статусом приёма заявок -->
+            <div class="card-header">
+                <div>
+                    <div class="card-title">Rezerwacja wizyty online</div>
+                    <div class="card-subtitle">
+                        Formularz przykładowy – możesz dostosować go do dowolnej branży (salon, gabinet, konsultacje).
+                    </div>
+                </div>
+                <div class="status">
+                    <span class="status-dot"></span>
+                    <span>Przyjmujemy nowe zgłoszenia</span>
+                </div>
+            </div>
+
+            <!-- Основная часть: информация + форма -->
+            <div class="card-body">
+                <!-- Левая колонка: текстовые блоки и подсказки для клиента -->
+                <section class="info-block" aria-label="Informacje o rezerwacji">
+                    <h2>Jak to działa?</h2>
+                    <p>
+                        Wypełnij krótki formularz, wybierz usługę i preferowany termin.
+                        Otrzymasz potwierdzenie rezerwacji mailowo lub telefonicznie.
+                    </p>
+                    <ul class="info-list">
+                        <li>
+                            <span class="info-icon">①</span>
+                            Wybierz usługę i dzień, który najbardziej Ci odpowiada.
+                        </li>
+                        <li>
+                            <span class="info-icon">②</span>
+                            Opisz krótko, czego potrzebujesz – przygotujemy się do wizyty.
+                        </li>
+                        <li>
+                            <span class="info-icon">③</span>
+                            Poczekaj na kontakt z potwierdzeniem dokładnej godziny.
+                        </li>
+                    </ul>
+                    <p class="info-note">
+                        Ten moduł może zostać połączony z dowolnym systemem rezerwacji, kalendarzem Google
+                        lub zewnętrznym API – w portfolio pokazuje logikę formularza, walidację i podsumowanie zgłoszenia.
+                    </p>
+
+                    <div class="channels" aria-label="Szybkie formy kontaktu">
+                        <div class="channel-chip">Telefon: +48 600 000 000</div>
+                        <div class="channel-chip">E‑mail: kontakt@example.com</div>
+                        <div class="channel-chip">WhatsApp / Telegram</div>
+                    </div>
+                </section>
+
+                <!-- Правая колонка: интерактивная форма с валидацией -->
+                <section aria-label="Formularz rezerwacyjny">
+                    <form id="booking-form" novalidate>
+                        <!-- Первая строка: имя и e‑mail -->
+                        <div class="form-row">
+                            <div>
+                                <label for="name">Imię i nazwisko*</label>
+                                <input id="name" name="name" type="text" placeholder="Twoje imię i nazwisko">
+                                <div class="form-error" data-error-for="name"></div>
+                            </div>
+                            <div>
+                                <label for="email">E‑mail*</label>
+                                <input id="email" name="email" type="email" placeholder="you@example.com">
+                                <div class="form-error" data-error-for="email"></div>
+                            </div>
+                        </div>
+
+                        <!-- Вторая строка: телефон и выбор услуги -->
+                        <div class="form-row">
+                            <div>
+                                <label for="phone">Telefon*</label>
+                                <input id="phone" name="phone" type="tel" placeholder="+48 ...">
+                                <div class="form-error" data-error-for="phone"></div>
+                            </div>
+                            <div>
+                                <label for="service">Usługa*</label>
+                                <select id="service" name="service">
+                                    <option value="">Wybierz usługę</option>
+                                    <option value="consult">Konsultacja wstępna</option>
+                                    <option value="visit">Wizyta standardowa</option>
+                                    <option value="extended">Wizyta rozszerzona</option>
+                                </select>
+                                <div class="form-error" data-error-for="service"></div>
+                            </div>
+                        </div>
+
+                        <!-- Третья строка: дата и формат (online/offline) -->
+                        <div class="form-row">
+                            <div>
+                                <label for="date">Preferowana data*</label>
+                                <input id="date" name="date" type="date">
+                                <div class="form-error" data-error-for="date"></div>
+                            </div>
+                            <div>
+                                <label for="mode">Forma spotkania</label>
+                                <select id="mode" name="mode">
+                                    <option value="office">W gabinecie / w salonie</option>
+                                    <option value="online">Online (np. Zoom)</option>
+                                    <option value="phone">Rozmowa telefoniczna</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Поле с дополнительной информацией -->
+                        <div>
+                            <label for="message">Dodatkowe informacje</label>
+                            <textarea id="message" name="message" placeholder="Np. godziny, które pasują, krótki opis potrzeby, ważne informacje zdrowotne itp."></textarea>
+                        </div>
+
+                        <!-- Кнопка отправки и текст‑подсказка -->
+                        <button class="btn-submit" type="submit">
+                            <span>➤</span> Wyślij zgłoszenie
+                        </button>
+                        <p class="form-note">
+                            Pola oznaczone * są obowiązkowe. Dane z formularza w wersji produkcyjnej mogą być wysyłane
+                            na e‑mail lub do systemu rezerwacji przez API.
+                        </p>
+
+                        <!-- Блок для вывода итогового резюме заявки -->
+                        <div id="summary" class="summary" aria-live="polite"></div>
+
+                        <!-- Общее сообщение об ошибке для всей формы -->
+                        <div class="form-error" data-error-for="form"></div>
+                    </form>
+                </section>
+            </div>
+
+            <!-- Низ карточки с пояснением для портфолио -->
+            <div class="card-footer">
+                <span>Moduł pokazowy: formularz rezerwacji z walidacją po stronie front‑endu.</span>
+                <span>Łatwo przenieść do WordPressa lub aplikacji React.</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Логика: валидация полей, отображение ошибок и краткого резюме заявки -->
+    <script>
+        // Ссылка на форму и блок для резюме
+        const form = document.getElementById("booking-form");
+        const summaryBox = document.getElementById("summary");
+
+        // Обработчик отправки формы
+        form.addEventListener("submit", function (event) {
+            // Блокируем стандартную отправку, работаем только на фронтенде
+            event.preventDefault();
+
+            // Очищаем предыдущие ошибки и резюме
+            clearErrors();
+            summaryBox.style.display = "none";
+            summaryBox.innerHTML = "";
+
+            // Считываем значения полей и удаляем лишние пробелы
+            const name = form.name.value.trim();
+            const email = form.email.value.trim();
+            const phone = form.phone.value.trim();
+            const service = form.service.value;
+            const date = form.date.value;
+            const mode = form.mode.value;
+            const message = form.message.value.trim();
+
+            let hasError = false;
+
+            // Проверка имени
+            if (!name) {
+                showError("name", "Podaj imię i nazwisko.");
+                hasError = true;
+            }
+
+            // Простая проверка e‑mail
+            if (!email || !email.includes("@")) {
+                showError("email", "Podaj poprawny adres e‑mail.");
+                hasError = true;
+            }
+
+            // Проверка телефона по длине (для демо)
+            if (!phone || phone.length < 6) {
+                showError("phone", "Podaj numer telefonu (min. 6 znaków).");
+                hasError = true;
+            }
+
+            // Проверка выбранной услуги
+            if (!service) {
+                showError("service", "Wybierz usługę.");
+                hasError = true;
+            }
+
+            // Проверка даты
+            if (!date) {
+                showError("date", "Wybierz preferowaną datę.");
+                hasError = true;
+            }
+
+            // Если есть ошибки, выводим общее сообщение и выходим
+            if (hasError) {
+                showError("form", "Sprawdź poprawność danych w formularzu.");
+                return;
+            }
+
+            // Если всё ок – формируем человеко‑читаемое резюме заявки
+            const serviceLabel = getServiceLabel(service);
+            const modeLabel = getModeLabel(mode);
+
+            summaryBox.innerHTML =
+                "<strong>Dziękujemy za zgłoszenie!</strong>" +
+                "Oto podsumowanie Twojej prośby:<br>" +
+                "- Imię i nazwisko: <b>" + escapeHtml(name) + "</b><br>" +
+                "- E‑mail: <b>" + escapeHtml(email) + "</b><br>" +
+                "- Telefon: <b>" + escapeHtml(phone) + "</b><br>" +
+                "- Usługa: <b>" + serviceLabel + "</b><br>" +
+                "- Preferowana data: <b>" + escapeHtml(date) + "</b><br>" +
+                "- Forma spotkania: <b>" + modeLabel + "</b>" +
+                (message ? "<br>- Notatka: <b>" + escapeHtml(message) + "</b>" : "");
+
+            summaryBox.style.display = "block";
+
+            // В демо‑версии мы не отправляем данные на сервер, только сбрасываем форму
+            form.reset();
+        });
+
+        // Функция для отображения ошибки под конкретным полем
+        function showError(fieldName, message) {
+            const el = document.querySelector('[data-error-for="' + fieldName + '"]');
+            if (el) {
+                el.textContent = message;
+            }
+        }
+
+        // Функция для очистки всех сообщений об ошибках
+        function clearErrors() {
+            document.querySelectorAll(".form-error").forEach(function (el) {
+                el.textContent = "";
+            });
+        }
+
+        // Функции для перевода значений select в человеко‑читаемый текст
+        function getServiceLabel(value) {
+            if (value === "consult") return "Konsultacja wstępna";
+            if (value === "visit") return "Wizyta standardowa";
+            if (value === "extended") return "Wizyta rozszerzona";
+            return value || "brak danych";
+        }
+
+        function getModeLabel(value) {
+            if (value === "online") return "Online";
+            if (value === "phone") return "Rozmowa telefoniczna";
+            return "W gabinecie / w salonie";
+        }
+
+        // Простая защита от вставки HTML в резюме заявки
+        function escapeHtml(str) {
+            return str.replace(/[&<>"']/g, function (ch) {
+                const map = {
+                    "&": "&amp;",
+                    "<": "&lt;",
+                    ">": "&gt;",
+                    '"': "&quot;",
+                    "'": "&#039;"
+                };
+                return map[ch] || ch;
+            });
+        }
+    </script>
+</body>
+</html>
