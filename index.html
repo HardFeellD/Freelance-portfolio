@@ -2,36 +2,34 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-    <!-- Описание: главная страница портфолио с ссылками на демо‑проекты -->
+    <!-- Описание: główna strona portfolia – linki do trzech projektów demonstracyjnych -->
     <meta charset="UTF-8">
-    <title>Freanzy – Portfolio freelance</title>
+    <title>Freanzy – Portfolio freelance | WordPress, front‑end, automatyzacje</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Portfolio freelancera – landing page salonu beauty, strona trenera personalnego oraz moduł rezerwacji wizyt. Proste projekty, które można szybko dostosować do potrzeb Twojej firmy.">
+    <meta name="description" content="Portfolio freelancera – landing page salonu beauty, strona trenera personalnego oraz moduł rezerwacji wizyt. Projekty gotowe do szybkiego wdrożenia lub przeniesienia na WordPress.">
 
-    <!-- Описание: подключение аккуратного шрифта Google и базовые стили -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
         /* Автор: Frean_zy */
-        /* Описание: базовые переменные цветов и размеров для единого стиля */
+        /* Описание: zmienne kolory i rozmiary – spójne z projektami Salon, Trener, Rezerwacja */
         :root {
-            --bg: #020617;
-            --bg-soft: #0b1120;
-            --card: #020617;
+            --bg: #050816;
+            --surface: #090b1f;
+            --surface-soft: #0f1227;
             --primary: #6366f1;
-            --primary-soft: #4f46e5;
+            --primary-soft: #818cf8;
             --accent: #22c55e;
-            --border: rgba(148, 163, 184, 0.6);
-            --text-main: #e5e7eb;
+            --border-soft: rgba(148, 163, 184, 0.5);
+            --text-main: #f9fafb;
             --text-muted: #9ca3af;
-            --max-width: 1040px;
-            --radius-lg: 22px;
-            --radius-md: 14px;
+            --max-width: 1080px;
+            --radius-lg: 26px;
+            --radius-md: 18px;
         }
 
-        /* Описание: сброс и базовое оформление текста */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -43,182 +41,185 @@
             font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
             color: var(--text-main);
             background:
-                radial-gradient(circle at top left, rgba(56, 189, 248, 0.17) 0, transparent 55%),
-                radial-gradient(circle at top right, rgba(99, 102, 241, 0.28) 0, transparent 60%),
-                radial-gradient(circle at bottom, rgba(34, 197, 94, 0.16) 0, transparent 55%),
-                #020617;
+                radial-gradient(circle at top left, rgba(99, 102, 241, 0.2) 0, transparent 50%),
+                radial-gradient(circle at top right, rgba(56, 189, 248, 0.15) 0, transparent 50%),
+                radial-gradient(circle at bottom, rgba(34, 197, 94, 0.12) 0, transparent 50%),
+                linear-gradient(165deg, #020617 0%, var(--bg) 100%);
             display: flex;
             justify-content: center;
             align-items: flex-start;
-            padding: 28px 16px 32px;
+            padding: 28px 16px 36px;
         }
 
-        /* Описание: общий контейнер для всего контента по центру экрана */
         .shell {
             width: 100%;
             max-width: var(--max-width);
             position: relative;
         }
 
-        /* Описание: декоративные "блики" на фоне */
+        /* Описание: delikatne „bliki” na tle dla głębi */
         .shell::before,
         .shell::after {
             content: "";
             position: absolute;
             border-radius: 999px;
-            filter: blur(40px);
-            opacity: 0.45;
+            filter: blur(60px);
+            opacity: 0.5;
             z-index: -1;
         }
 
         .shell::before {
-            width: 260px;
-            height: 260px;
-            background: radial-gradient(circle, rgba(56, 189, 248, 0.45), transparent 60%);
-            top: -80px;
-            left: -40px;
+            width: 320px;
+            height: 320px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.35), transparent 55%);
+            top: -100px;
+            left: -60px;
         }
 
         .shell::after {
-            width: 260px;
-            height: 260px;
-            background: radial-gradient(circle, rgba(34, 197, 94, 0.4), transparent 60%);
+            width: 280px;
+            height: 280px;
+            background: radial-gradient(circle, rgba(34, 197, 94, 0.3), transparent 55%);
             bottom: -80px;
-            right: -30px;
+            right: -40px;
         }
 
-        /* Описание: верхняя панель с именем и ссылками */
+        /* Описание: górny pasek – marka i status */
         .topbar {
-            margin-bottom: 20px;
+            margin-bottom: 24px;
             display: flex;
             justify-content: space-between;
-            gap: 14px;
             align-items: center;
+            gap: 14px;
+            flex-wrap: wrap;
         }
 
         .brand {
             display: flex;
             flex-direction: column;
-            gap: 2px;
+            gap: 4px;
         }
 
         .brand-title {
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             font-weight: 600;
-            letter-spacing: 0.06em;
+            letter-spacing: 0.1em;
             text-transform: uppercase;
         }
 
         .brand-title span {
-            color: var(--primary);
+            color: var(--primary-soft);
         }
 
         .brand-subtitle {
             font-size: 0.82rem;
             color: var(--text-muted);
+            letter-spacing: 0.02em;
         }
 
         .top-links {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
-            justify-content: flex-end;
+            gap: 10px;
+            align-items: center;
         }
 
         .pill {
-            padding: 7px 11px;
+            padding: 8px 12px;
             border-radius: 999px;
-            border: 1px solid rgba(148, 163, 184, 0.65);
-            background: rgba(15, 23, 42, 0.72);
-            font-size: 0.78rem;
+            border: 1px solid rgba(148, 163, 184, 0.5);
+            background: rgba(15, 23, 42, 0.75);
+            font-size: 0.8rem;
             color: var(--text-muted);
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
         }
 
         .pill-dot {
-            width: 7px;
-            height: 7px;
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
-            background: #22c55e;
+            background: var(--accent);
         }
 
         .pill-link {
-            border-color: rgba(129, 140, 248, 0.65);
+            border-color: rgba(129, 140, 248, 0.55);
             color: #c7d2fe;
-            cursor: pointer;
             text-decoration: none;
         }
 
         .pill-link:hover {
             border-color: rgba(129, 140, 248, 0.9);
+            color: #e0e7ff;
         }
 
-        /* Описание: основная "плашка" портфолио с заголовком и карточками */
+        /* Описание: główna karta – panel z nagłówkiem i siatką projektów */
         .panel {
             border-radius: var(--radius-lg);
-            background: radial-gradient(circle at top, rgba(15, 23, 42, 0.85), #020617 48%, #020617 100%);
-            border: 1px solid var(--border);
+            background: radial-gradient(circle at top left, rgba(99, 102, 241, 0.08), transparent 45%),
+                        rgba(15, 23, 42, 0.88);
+            border: 1px solid var(--border-soft);
             box-shadow:
-                0 26px 70px rgba(15, 23, 42, 0.9),
-                0 0 0 1px rgba(15, 23, 42, 0.8);
-            padding: 22px 22px 20px;
+                0 28px 80px rgba(15, 23, 42, 0.92),
+                0 0 0 1px rgba(15, 23, 42, 0.6);
+            padding: 26px 24px 22px;
+            overflow: hidden;
         }
 
-        header {
+        .panel-header {
             text-align: center;
-            margin-bottom: 22px;
+            margin-bottom: 26px;
         }
 
-        h1 {
-            font-size: 1.9rem;
+        .panel-title {
+            font-size: 2rem;
             font-weight: 600;
             letter-spacing: 0.02em;
-            margin-bottom: 4px;
+            margin-bottom: 8px;
         }
 
-        .subtitle {
-            font-size: 0.95rem;
+        .panel-subtitle {
+            font-size: 0.98rem;
             color: var(--text-muted);
+            max-width: 560px;
+            margin: 0 auto;
+            line-height: 1.55;
         }
 
-        /* Описание: сетка карточек с проектами */
+        /* Описание: siatka trzech kart projektów */
         .grid {
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 16px;
+            gap: 18px;
         }
 
         .card {
             position: relative;
             border-radius: var(--radius-md);
-            background: radial-gradient(circle at top left, rgba(99, 102, 241, 0.18), transparent 55%),
-                        var(--card);
-            border: 1px solid rgba(148, 163, 184, 0.6);
-            padding: 14px 13px 15px;
-            box-shadow: 0 18px 36px rgba(15, 23, 42, 0.65);
+            background: radial-gradient(circle at top left, rgba(99, 102, 241, 0.14), transparent 50%),
+                        var(--surface);
+            border: 1px solid rgba(148, 163, 184, 0.45);
+            padding: 18px 16px 20px;
+            box-shadow: 0 18px 44px rgba(15, 23, 42, 0.6);
             overflow: hidden;
-            transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
         }
 
         .card::before {
-            /* Описание: легкий градиентный "блик" в углу карточки */
             content: "";
             position: absolute;
             inset: 0;
-            background: radial-gradient(circle at top right, rgba(129, 140, 248, 0.18), transparent 55%);
+            background: radial-gradient(circle at top right, rgba(129, 140, 248, 0.15), transparent 50%);
             opacity: 0;
-            transition: opacity 0.18s ease;
+            transition: opacity 0.2s ease;
             pointer-events: none;
         }
 
         .card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 26px 60px rgba(15, 23, 42, 0.95);
-            border-color: rgba(129, 140, 248, 0.95);
-            background: radial-gradient(circle at top left, rgba(129, 140, 248, 0.24), transparent 55%),
-                        var(--card);
+            transform: translateY(-5px);
+            box-shadow: 0 24px 56px rgba(15, 23, 42, 0.85);
+            border-color: rgba(129, 140, 248, 0.7);
         }
 
         .card:hover::before {
@@ -226,62 +227,63 @@
         }
 
         .card-title {
-            font-size: 1.02rem;
-            font-weight: 500;
-            margin-bottom: 2px;
+            font-size: 1.06rem;
+            font-weight: 600;
+            margin-bottom: 4px;
         }
 
         .card-tag {
             font-size: 0.8rem;
             color: var(--text-muted);
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
 
         .card p {
-            font-size: 0.86rem;
+            font-size: 0.88rem;
             color: var(--text-muted);
-            margin-bottom: 12px;
-            min-height: 52px;
+            margin-bottom: 14px;
+            min-height: 56px;
+            line-height: 1.5;
         }
 
         .badge-row {
             display: flex;
             flex-wrap: wrap;
-            gap: 6px;
-            margin-bottom: 10px;
+            gap: 8px;
+            margin-bottom: 12px;
         }
 
         .badge {
-            font-size: 0.72rem;
-            padding: 4px 8px;
+            font-size: 0.74rem;
+            padding: 5px 9px;
             border-radius: 999px;
-            background: rgba(30, 64, 175, 0.52);
+            background: rgba(30, 64, 175, 0.45);
             color: #c7d2fe;
         }
 
         .badge-alt {
-            background: rgba(22, 163, 74, 0.4);
+            background: rgba(22, 163, 74, 0.35);
             color: #bbf7d0;
         }
 
         .badge-soft {
-            background: rgba(148, 163, 184, 0.32);
+            background: rgba(148, 163, 184, 0.28);
             color: #e5e7eb;
         }
 
-        /* Описание: кнопка открытия демо внутри карточки */
         .card a {
             display: inline-flex;
             align-items: center;
-            gap: 7px;
-            font-size: 0.88rem;
-            padding: 8px 12px;
+            gap: 8px;
+            font-size: 0.9rem;
+            padding: 9px 14px;
             border-radius: 999px;
-            background: radial-gradient(circle at left, var(--primary) 0, var(--primary-soft) 40%, var(--accent) 100%);
-            color: #ffffff;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: #fff;
             text-decoration: none;
-            border: none;
-            cursor: pointer;
+            font-weight: 500;
+            box-shadow: 0 10px 28px rgba(99, 102, 241, 0.4);
+            transition: filter 0.2s ease, box-shadow 0.2s ease;
         }
 
         .card a span {
@@ -290,17 +292,19 @@
 
         .card a:hover {
             filter: brightness(1.1);
+            box-shadow: 0 14px 34px rgba(99, 102, 241, 0.5);
         }
 
-        /* Описание: нижняя строка с пояснением */
-        footer {
-            margin-top: 16px;
+        .panel-footer {
+            margin-top: 20px;
+            padding-top: 18px;
+            border-top: 1px solid rgba(148, 163, 184, 0.35);
             text-align: center;
-            font-size: 0.8rem;
+            font-size: 0.82rem;
             color: var(--text-muted);
+            line-height: 1.5;
         }
 
-        /* Описание: адаптив под планшеты и телефоны */
         @media (max-width: 900px) {
             .grid {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -309,17 +313,21 @@
 
         @media (max-width: 640px) {
             body {
-                padding-top: 20px;
+                padding-top: 22px;
             }
 
             .topbar {
                 flex-direction: column;
                 align-items: flex-start;
-                gap: 10px;
+                gap: 12px;
             }
 
             .panel {
-                padding: 18px 16px 17px;
+                padding: 20px 18px 18px;
+            }
+
+            .panel-title {
+                font-size: 1.6rem;
             }
 
             .grid {
@@ -333,9 +341,8 @@
     </style>
 </head>
 <body>
-    <!-- Описание: внешний контейнер, центрирующий шапку, панель и футер -->
     <div class="shell">
-        <!-- Описание: верхняя строка с именем и статусом фрилансера -->
+        <!-- Описание: górny pasek z marką FREANZY DEV i statusem -->
         <div class="topbar">
             <div class="brand">
                 <div class="brand-title">FREANZY <span>DEV</span></div>
@@ -348,69 +355,66 @@
                     <span class="pill-dot"></span>
                     <span>Dostępny na nowe zlecenia</span>
                 </div>
-                <a class="pill pill-link" href="https://hardfeelld.github.io/Freelance-portfolio/" target="_blank" rel="noopener noreferrer">
-                    GitHub Pages
+                <a class="pill pill-link" href="https://github.com/HardFeelID/Freelance-portfolio" target="_blank" rel="noopener noreferrer">
+                    Repozytorium GitHub
                 </a>
             </div>
         </div>
 
-        <!-- Описание: основная панель с заголовком и тремя карточками проектов -->
+        <!-- Описание: główna karta z tytułem portfolia i trzema projektami -->
         <div class="panel" aria-label="Portfolio – projekty demonstracyjne">
-            <header>
-                <h1>Portfolio – projekty demonstracyjne</h1>
-                <p class="subtitle">
+            <header class="panel-header">
+                <h1 class="panel-title">Portfolio – projekty demonstracyjne</h1>
+                <p class="panel-subtitle">
                     Trzy przykładowe projekty front‑end: landing page salonu beauty, strona trenera personalnego
-                    oraz moduł rezerwacji wizyt z walidacją formularza.
+                    oraz moduł rezerwacji wizyt z walidacją formularza. Każdy można szybko dostosować do Twojej branży lub przenieść na WordPress.
                 </p>
             </header>
 
             <main>
                 <div class="grid" aria-label="Lista projektów">
-                    <!-- Описание: карточка демо‑сайта салона красоты -->
                     <article class="card">
                         <div class="card-title">Salon kosmetyczny</div>
                         <div class="card-tag">Landing page WordPress / front‑end</div>
                         <p>
-                            Jednostronicowa strona salonu beauty z sekcjami: oferta, cennik, opinie klientek
-                            oraz formularz kontaktowy z walidacją.
+                            Jednostronicowa strona salonu beauty: oferta, cennik, opinie klientek
+                            oraz formularz kontaktowy z walidacją. Ciemny motyw, zdjęcia branżowe.
                         </p>
                         <div class="badge-row">
-                            <div class="badge">HTML / CSS / JS</div>
-                            <div class="badge badge-soft">Layout pod WordPress</div>
+                            <span class="badge">HTML / CSS / JS</span>
+                            <span class="badge badge-soft">Layout pod WordPress</span>
                         </div>
                         <a href="Salon-landing/index.html" target="_blank" rel="noopener noreferrer">
                             <span>➤</span> Otwórz demo
                         </a>
                     </article>
 
-                    <!-- Описание: карточка демо‑страницы тренера -->
                     <article class="card">
                         <div class="card-title">Trener personalny</div>
                         <div class="card-tag">Strona one‑page / wizytówka</div>
                         <p>
-                            Wizytówka trenera personalnego z opisem oferty, pakietami współpracy,
-                            prostą „drogą klienta” i formularzem kontaktowym.
+                            Wizytówka trenera z opisem oferty, pakietami współpracy, krokiem „jak współpracujemy”
+                            oraz formularzem kontaktowym. Spójny motyw z portfolio.
                         </p>
                         <div class="badge-row">
-                            <div class="badge">Responsywny one‑page</div>
-                            <div class="badge badge-soft">Gotowy pod React / WP</div>
+                            <span class="badge">Responsywny one‑page</span>
+                            <span class="badge badge-soft">Gotowy pod React / WP</span>
                         </div>
                         <a href="Trener/index.html" target="_blank" rel="noopener noreferrer">
                             <span>➤</span> Otwórz demo
                         </a>
                     </article>
 
-                    <!-- Описание: карточка модуля онлайн‑записи -->
                     <article class="card">
                         <div class="card-title">Moduł rezerwacji wizyt</div>
                         <div class="card-tag">Formularz + walidacja front‑end</div>
                         <p>
-                            Przykładowy formularz rezerwacyjny z walidacją pól, podsumowaniem zgłoszenia
+                            Formularz rezerwacyjny z walidacją pól, podsumowaniem zgłoszenia
                             oraz gotową logiką do podpięcia pod e‑mail lub API.
                         </p>
                         <div class="badge-row">
-                            <div class="badge badge-alt">Walidacja danych</div>
-                            <div class="badge badge-soft">Możliwa integracja z API</div>
+                            <span class="badge badge-alt">Walidacja danych</span>
+                            <span class="badge badge-soft">Integracja z API</span>
                         </div>
                         <a href="Rezerwacja/index.html" target="_blank" rel="noopener noreferrer">
                             <span>➤</span> Otwórz demo
@@ -419,9 +423,9 @@
                 </div>
             </main>
 
-            <footer>
-                © 2026 – projekty demonstracyjne do portfolio freelancera.  
-                Strony mogą zostać szybko dostosowane do konkretnej branży lub przeniesione na WordPress.
+            <footer class="panel-footer">
+                © 2026 – projekty demonstracyjne do portfolio freelancera.<br>
+                Strony można szybko dostosować do konkretnej branży lub przenieść na WordPress lub React.
             </footer>
         </div>
     </div>
