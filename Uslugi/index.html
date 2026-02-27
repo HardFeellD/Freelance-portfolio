@@ -1,0 +1,210 @@
+<!-- Автор: Frean_zy -->
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <!-- Описание: strona oferty usług – co mogę zrobić dla klienta (meta‑portfolio) -->
+    <meta charset="UTF-8">
+    <title>Usługi – co oferuję | Freanzy DEV</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Oferta usług freelancera: audyt WordPress, landing page, formularze i rezerwacje, automatyzacje w Pythonie, arkusze Google i Excel.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Автор: Frean_zy */
+        :root {
+            --bg: #050816;
+            --surface: #090b1f;
+            --surface-soft: #0f1227;
+            --primary: #6366f1;
+            --primary-soft: #818cf8;
+            --accent: #22c55e;
+            --border-soft: rgba(148, 163, 184, 0.5);
+            --text-main: #f9fafb;
+            --text-muted: #9ca3af;
+            --max-width: 900px;
+            --radius-lg: 26px;
+            --radius-md: 18px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            min-height: 100vh;
+            font-family: "Inter", system-ui, sans-serif;
+            color: var(--text-main);
+            background:
+                radial-gradient(circle at top right, rgba(99, 102, 241, 0.2) 0, transparent 50%),
+                linear-gradient(165deg, #020617 0%, var(--bg) 100%);
+            padding: 28px 16px 36px;
+        }
+
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .logo {
+            font-size: 1.2rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            margin-bottom: 6px;
+        }
+
+        .logo span { color: var(--primary-soft); }
+
+        h1 {
+            font-size: 1.85rem;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+
+        .card {
+            border-radius: var(--radius-md);
+            background: radial-gradient(circle at top left, rgba(99, 102, 241, 0.12), transparent 50%),
+                        var(--surface);
+            border: 1px solid var(--border-soft);
+            padding: 18px 16px 20px;
+            box-shadow: 0 18px 44px rgba(15, 23, 42, 0.55);
+        }
+
+        .card h3 {
+            font-size: 1.02rem;
+            margin-bottom: 6px;
+        }
+
+        .card p {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .cta-block {
+            text-align: center;
+            padding: 24px 20px;
+            border-radius: var(--radius-lg);
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(34, 197, 94, 0.12));
+            border: 1px solid rgba(148, 163, 184, 0.4);
+        }
+
+        .cta-title {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+        }
+
+        .cta-text {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .btn-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 22px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: #fff;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+
+        .btn-cta:hover { filter: brightness(1.1); }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            font-size: 0.88rem;
+            color: var(--text-muted);
+        }
+
+        .back-link:hover { color: var(--primary-soft); }
+
+        @media (max-width: 640px) {
+            .grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">FREANZY <span>DEV</span></div>
+            <h1>Co mogę dla Ciebie zrobić?</h1>
+            <p class="subtitle">
+                Poniżej krótka lista usług, które realizuję jako freelancer. Każdą można doprecyzować pod Twój projekt.
+            </p>
+        </header>
+
+        <div class="grid">
+            <article class="card">
+                <h3>Audyt WordPress</h3>
+                <p>
+                    Przegląd strony pod kątem szybkości, bezpieczeństwa i obciążeń. Rekomendacje zmian (cache, hosting, wtyczki) oraz ewentualna konsultacja online.
+                </p>
+            </article>
+            <article class="card">
+                <h3>Landing page / strona one‑page</h3>
+                <p>
+                    Prosta, responsywna strona dla firmy lub usługi: oferta, cennik, opinie, formularz kontaktowy. Możliwość wdrożenia w WordPress lub jako statyczna strona.
+                </p>
+            </article>
+            <article class="card">
+                <h3>Formularze i rezerwacje</h3>
+                <p>
+                    Formularze kontaktowe, rezerwacje wizyt, zapisy na konsultacje – z walidacją i opcjonalną integracją z e‑mailem, Google Sheets lub API.
+                </p>
+            </article>
+            <article class="card">
+                <h3>Automatyzacje (Python, API)</h3>
+                <p>
+                    Proste skrypty i automatyzacje: parsowanie danych, raporty, powiadomienia, integracje z zewnętrznymi serwisami. Dopasowane do Twojego procesu.
+                </p>
+            </article>
+            <article class="card">
+                <h3>Arkusze Google / Excel</h3>
+                <p>
+                    Cenniki z formułami, kalkulatory ofert, tabele przestawne, raporty. Czytelna struktura i ewentualna instrukcja obsługi.
+                </p>
+            </article>
+            <article class="card">
+                <h3>Proste aplikacje webowe</h3>
+                <p>
+                    Małe narzędzia w przeglądarce: kalkulatory, panele z danymi, formularze z logiką. Możliwość rozbudowy w React lub integracji z backendem.
+                </p>
+            </article>
+        </div>
+
+        <div class="cta-block">
+            <div class="cta-title">Chcesz omówić projekt?</div>
+            <p class="cta-text">
+                Napisz, opisz krótko zadanie – zaproponuję zakres, wycenę i termin realizacji.
+            </p>
+            <a class="btn-cta" href="https://useme.com/pl/" target="_blank" rel="noopener noreferrer">
+                ➤ Znajdź mnie na Useme
+            </a>
+            <br>
+            <a class="back-link" href="../index.html">← Wróć do portfolio</a>
+        </div>
+    </div>
+</body>
+</html>

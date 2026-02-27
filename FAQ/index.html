@@ -1,0 +1,298 @@
+<!-- Автор: Frean_zy -->
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <!-- Описание: strona FAQ – accordion z wyszukiwarką po pytaniach -->
+    <meta charset="UTF-8">
+    <title>FAQ – często zadawane pytania | Portfolio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Przykładowa baza pytań i odpowiedzi z rozwijanymi sekcjami i wyszukiwarką – gotowa do wdrożenia na stronę klienta.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Автор: Frean_zy */
+        :root {
+            --bg: #050816;
+            --surface: #090b1f;
+            --surface-soft: #0f1227;
+            --primary: #6366f1;
+            --primary-soft: #818cf8;
+            --accent: #22c55e;
+            --border-soft: rgba(148, 163, 184, 0.5);
+            --text-main: #f9fafb;
+            --text-muted: #9ca3af;
+            --max-width: 720px;
+            --radius-lg: 26px;
+            --radius-md: 18px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            min-height: 100vh;
+            font-family: "Inter", system-ui, sans-serif;
+            color: var(--text-main);
+            background:
+                radial-gradient(circle at top right, rgba(99, 102, 241, 0.18) 0, transparent 50%),
+                linear-gradient(165deg, #020617 0%, var(--bg) 100%);
+            padding: 28px 16px 36px;
+        }
+
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+        }
+
+        header {
+            margin-bottom: 24px;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            margin-bottom: 6px;
+        }
+
+        .subtitle {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .search-wrap {
+            margin-bottom: 20px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 14px;
+            border: 1px solid var(--border-soft);
+            background: var(--surface);
+            color: var(--text-main);
+            font-size: 0.95rem;
+        }
+
+        .search-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .accordion-item {
+            border-radius: var(--radius-md);
+            background: var(--surface);
+            border: 1px solid var(--border-soft);
+            margin-bottom: 10px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.4);
+        }
+
+        .accordion-item.hidden {
+            display: none;
+        }
+
+        .accordion-trigger {
+            width: 100%;
+            padding: 14px 18px;
+            text-align: left;
+            background: transparent;
+            border: none;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .accordion-trigger:hover {
+            background: rgba(99, 102, 241, 0.08);
+        }
+
+        .accordion-trigger .icon {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            transition: transform 0.2s ease;
+        }
+
+        .accordion-item.open .accordion-trigger .icon {
+            transform: rotate(180deg);
+        }
+
+        .accordion-body {
+            padding: 0 18px 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.25s ease;
+        }
+
+        .accordion-item.open .accordion-body {
+            max-height: 400px;
+        }
+
+        .accordion-body-inner {
+            padding: 0 0 16px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.55;
+            border-top: 1px solid rgba(148, 163, 184, 0.25);
+            padding-top: 12px;
+            margin-top: 0;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 24px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .no-results.visible {
+            display: block;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            font-size: 0.88rem;
+            color: var(--text-muted);
+        }
+
+        .back-link:hover { color: var(--primary-soft); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Najczęściej zadawane pytania</h1>
+            <p class="subtitle">
+                Wyszukaj pytanie lub rozwiń wybraną sekcję. Demo dla portfolio – treści można podmienić pod stronę klienta.
+            </p>
+        </header>
+
+        <div class="search-wrap">
+            <input type="text" class="search-input" id="search" placeholder="Szukaj w pytaniach (np. współpraca, cena, termin)...">
+        </div>
+
+        <div id="accordion">
+            <div class="accordion-item" data-question="Jak wygląda współpraca?">
+                <button type="button" class="accordion-trigger" aria-expanded="false">
+                    <span>Jak wygląda współpraca?</span>
+                    <span class="icon">▼</span>
+                </button>
+                <div class="accordion-body">
+                    <div class="accordion-body-inner">
+                        Najpierw omawiamy zakres: co dokładnie ma być zrobione, w jakim terminie i jaki budżet. Następnie ustalamy formę współpracy (np. umowa o dzieło, zlecenie) i kolejne kroki. W trakcie realizacji na bieżąco informuję o postępach i ewentualnych pytaniach.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item" data-question="W jakich technologiach pracujesz?">
+                <button type="button" class="accordion-trigger" aria-expanded="false">
+                    <span>W jakich technologiach pracujesz?</span>
+                    <span class="icon">▼</span>
+                </button>
+                <div class="accordion-body">
+                    <div class="accordion-body-inner">
+                        Strony i landingi: HTML, CSS, JavaScript, WordPress (motywy, wtyczki). Proste aplikacje webowe: React. Automatyzacje i skrypty: Python, integracje z API. Do kalkulacji i raportów: Google Sheets, Excel (formuły, tabele przestawne).
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item" data-question="Jak wyceniasz projekty?">
+                <button type="button" class="accordion-trigger" aria-expanded="false">
+                    <span>Jak wyceniasz projekty?</span>
+                    <span class="icon">▼</span>
+                </button>
+                <div class="accordion-body">
+                    <div class="accordion-body-inner">
+                        Wycena zależy od zakresu i złożoności. Dla prostych landingów czy formularzy podaję zwykle stałą kwotę za projekt. Dla większych zleceń – stawka godzinowa lub pakiet (np. audyt + raport). Po opisaniu zadania przedstawiam orientacyjną wycenę bez zobowiązań.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item" data-question="Ile trwa realizacja?">
+                <button type="button" class="accordion-trigger" aria-expanded="false">
+                    <span>Ile trwa realizacja?</span>
+                    <span class="icon">▼</span>
+                </button>
+                <div class="accordion-body">
+                    <div class="accordion-body-inner">
+                        Prosty landing lub formularz: zwykle 1–2 tygodnie od momentu zebrania treści i materiałów. Audyt WordPress: kilka dni. Automatyzacje i skrypty: zależnie od złożoności, często 1–3 tygodnie. Dokładny termin ustalamy na start projektu.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item" data-question="Czy mogę zlecić tylko mały element?">
+                <button type="button" class="accordion-trigger" aria-expanded="false">
+                    <span>Czy mogę zlecić tylko mały element (np. kalkulator, formularz)?</span>
+                    <span class="icon">▼</span>
+                </button>
+                <div class="accordion-body">
+                    <div class="accordion-body-inner">
+                        Tak. Często realizuję pojedyncze moduły: formularz rezerwacji, kalkulator na stronę, integrację z zewnętrznym API, poprawki w istniejącej stronie WordPress. Wystarczy opisać, co ma działać i gdzie ma być wdrożone.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item" data-question="Czy pracujesz zdalnie?">
+                <button type="button" class="accordion-trigger" aria-expanded="false">
+                    <span>Czy pracujesz zdalnie?</span>
+                    <span class="icon">▼</span>
+                </button>
+                <div class="accordion-body">
+                    <div class="accordion-body-inner">
+                        Tak, współpraca odbywa się zdalnie: komunikacja mailowo lub przez komunikator (np. Telegram, WhatsApp), przekazywanie plików i treści online. Spotkania na żywo nie są konieczne, chyba że klient tego potrzebuje.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="no-results" class="no-results">
+            Brak pytań pasujących do wyszukiwanej frazy. Spróbuj innego hasła.
+        </div>
+
+        <a class="back-link" href="../index.html">← Wróć do portfolio</a>
+    </div>
+
+    <script>
+        // Автор: Frean_zy
+        // Описание: accordion – otwieranie/zamykanie oraz filtrowanie po wyszukiwaniu
+
+        var items = document.querySelectorAll(".accordion-item");
+        var searchInput = document.getElementById("search");
+        var noResults = document.getElementById("no-results");
+
+        // Klik w nagłówek – otwórz/zamknij
+        items.forEach(function (item) {
+            var trigger = item.querySelector(".accordion-trigger");
+            trigger.addEventListener("click", function () {
+                var isOpen = item.classList.contains("open");
+                items.forEach(function (i) { i.classList.remove("open"); });
+                if (!isOpen) item.classList.add("open");
+                trigger.setAttribute("aria-expanded", !isOpen);
+            });
+        });
+
+        // Wyszukiwarka – pokazuj/ukrywaj według tekstu
+        searchInput.addEventListener("input", function () {
+            var q = this.value.trim().toLowerCase();
+            var visibleCount = 0;
+
+            items.forEach(function (item) {
+                var question = (item.getAttribute("data-question") || "").toLowerCase();
+                var body = (item.querySelector(".accordion-body-inner") || {}).textContent || "";
+                var match = !q || question.indexOf(q) !== -1 || body.toLowerCase().indexOf(q) !== -1;
+
+                item.classList.toggle("hidden", !match);
+                if (match) visibleCount++;
+            });
+
+            noResults.classList.toggle("visible", q && visibleCount === 0);
+        });
+    </script>
+</body>
+</html>

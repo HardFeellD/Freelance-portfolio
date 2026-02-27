@@ -1,0 +1,202 @@
+<!-- Автор: Frean_zy -->
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <!-- Описание: demo panelu z danymi – tabela i wykresy (dashboard) -->
+    <meta charset="UTF-8">
+    <title>Panel demo – tabela i wykresy | Portfolio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Przykładowy panel z tabelą danych i wykresami – demo umiejętności budowy małych aplikacji webowych.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        /* Автор: Frean_zy */
+        :root {
+            --bg: #050816;
+            --surface: #090b1f;
+            --surface-soft: #0f1227;
+            --primary: #6366f1;
+            --accent: #22c55e;
+            --border-soft: rgba(148, 163, 184, 0.5);
+            --text-main: #f9fafb;
+            --text-muted: #9ca3af;
+            --max-width: 1000px;
+            --radius-lg: 26px;
+            --radius-md: 18px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            min-height: 100vh;
+            font-family: "Inter", system-ui, sans-serif;
+            color: var(--text-main);
+            background:
+                radial-gradient(circle at top left, rgba(99, 102, 241, 0.15) 0, transparent 50%),
+                linear-gradient(165deg, #020617 0%, var(--bg) 100%);
+            padding: 28px 16px 36px;
+        }
+
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+        }
+
+        header {
+            margin-bottom: 24px;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            margin-bottom: 4px;
+        }
+
+        .subtitle {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .card {
+            border-radius: var(--radius-md);
+            background: var(--surface);
+            border: 1px solid var(--border-soft);
+            box-shadow: 0 18px 44px rgba(15, 23, 42, 0.55);
+            padding: 18px 20px 20px;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 14px;
+        }
+
+        .chart-wrap {
+            height: 220px;
+            position: relative;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.88rem;
+        }
+
+        th, td {
+            padding: 10px 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.3);
+        }
+
+        th {
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        tr:hover td {
+            background: rgba(99, 102, 241, 0.08);
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 16px;
+            font-size: 0.88rem;
+            color: var(--text-muted);
+        }
+
+        .back-link:hover { color: var(--primary); }
+
+        @media (max-width: 640px) {
+            th, td { padding: 8px 10px; font-size: 0.82rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Panel demo – dane i wykresy</h1>
+            <p class="subtitle">
+                Przykładowy widok z tabelą „sprzedaży” i wykresem. W realnym projekcie dane mogą pochodzić z API lub bazy.
+            </p>
+        </header>
+
+        <div class="card">
+            <div class="card-title">Wykres – sprzedaż miesięczna (przykład)</div>
+            <div class="chart-wrap">
+                <canvas id="chart"></canvas>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">Tabela – ostatnie zamówienia (dane demo)</div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Lp.</th>
+                            <th>Produkt / usługa</th>
+                            <th>Kwota (zł)</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1</td><td>Landing page – salon</td><td>1 200</td><td>Zrealizowane</td></tr>
+                        <tr><td>2</td><td>Audyt WordPress</td><td>450</td><td>Zrealizowane</td></tr>
+                        <tr><td>3</td><td>Formularz rezerwacji</td><td>600</td><td>W trakcie</td></tr>
+                        <tr><td>4</td><td>Kalkulator wyceny</td><td>350</td><td>Zrealizowane</td></tr>
+                        <tr><td>5</td><td>Strona one‑page – trener</td><td>900</td><td>Zrealizowane</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <a class="back-link" href="../index.html">← Wróć do portfolio</a>
+    </div>
+
+    <script>
+        // Автор: Frean_zy
+        // Описание: inicjalizacja wykresu Chart.js w ciemnym motywie
+
+        var ctx = document.getElementById("chart").getContext("2d");
+        new Chart(ctx, {
+            type: "bar",
+            data: {
+                labels: ["Sty", "Lut", "Mar", "Kwi", "Maj", "Cze"],
+                datasets: [{
+                    label: "Sprzedaż (tys. zł)",
+                    data: [12, 15, 11, 18, 14, 20],
+                    backgroundColor: "rgba(99, 102, 241, 0.6)",
+                    borderColor: "rgba(129, 140, 248, 0.9)",
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: "rgba(148, 163, 184, 0.2)" },
+                        ticks: { color: "#9ca3af" }
+                    },
+                    x: {
+                        grid: { color: "rgba(148, 163, 184, 0.15)" },
+                        ticks: { color: "#9ca3af" }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
