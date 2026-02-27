@@ -2,27 +2,35 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-    <!-- Описание: базовые метаданные и адаптивность страницы -->
+    <!-- Описание: метаданные страницы модуля rezerwacji wizyt -->
     <meta charset="UTF-8">
-    <title>Rezerwacja wizyty online</title>
+    <title>Rezerwacja wizyty online – moduł demonstracyjny</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Prosty moduł rezerwacji wizyt online z formularzem, walidacją i podsumowaniem zgłoszenia.">
+    <meta name="description" content="Prosty moduł rezerwacji wizyt online z formularzem, walidacją i podsumowaniem zgłoszenia. Gotowy do integracji z e‑mailem lub API.">
 
-    <!-- Описание: стили для централизованного модуля бронирования -->
+    <!-- Описание: шрифт Inter dla spójności z resztą portfolia -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
-        /* Общие цветовые переменные и ширина контейнера */
+        /* Автор: Frean_zy */
+        /* Описание: zmienne kolorów i rozmiarów – ciemny motyw z fioletowo‑zielonym akcentem */
         :root {
             --primary: #6366f1;
-            --primary-dark: #4f46e5;
+            --primary-soft: #818cf8;
             --accent: #22c55e;
-            --bg: #0f172a;
-            --card-bg: #020617;
-            --text-main: #e5e7eb;
+            --bg: #050816;
+            --surface: #090b1f;
+            --surface-soft: #0f1227;
+            --border-soft: rgba(148, 163, 184, 0.5);
+            --text-main: #f9fafb;
             --text-muted: #9ca3af;
-            --max-width: 960px;
+            --max-width: 1000px;
+            --radius-lg: 26px;
+            --radius-md: 18px;
         }
 
-        /* Сброс отступов и базовое оформление */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -30,32 +38,35 @@
         }
 
         body {
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            background: radial-gradient(circle at top, #1e293b 0, #020617 55%);
-            color: var(--text-main);
             min-height: 100vh;
+            font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            color: var(--text-main);
+            background:
+                radial-gradient(circle at top left, rgba(99, 102, 241, 0.18) 0, transparent 45%),
+                radial-gradient(circle at bottom right, rgba(34, 197, 94, 0.14) 0, transparent 50%),
+                linear-gradient(165deg, #020617 0%, #050816 100%);
             display: flex;
             justify-content: center;
             align-items: flex-start;
-            padding: 32px 16px;
+            padding: 28px 16px 32px;
         }
 
-        /* Центрирующий контейнер для всей карточки */
         .shell {
             width: 100%;
             max-width: var(--max-width);
         }
 
-        /* Карточка модуля с тенью и скруглёнными углами */
+        /* Описание: główna karta modułu z delikatnym gradientem tła */
         .card {
-            background: rgba(15, 23, 42, 0.96);
-            border-radius: 24px;
-            border: 1px solid rgba(148, 163, 184, 0.4);
-            box-shadow: 0 24px 60px rgba(15, 23, 42, 0.9);
+            background: radial-gradient(circle at top left, rgba(99, 102, 241, 0.12), transparent 50%),
+                        rgba(15, 23, 42, 0.92);
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(148, 163, 184, 0.45);
+            box-shadow: 0 26px 70px rgba(15, 23, 42, 0.9);
             overflow: hidden;
         }
 
-        /* Верхняя «шапка» карточки с названием сервиса */
+        /* Описание: nagłówek karty z tytułem i statusem */
         .card-header {
             padding: 18px 22px;
             border-bottom: 1px solid rgba(148, 163, 184, 0.4);
@@ -63,7 +74,7 @@
             justify-content: space-between;
             align-items: center;
             gap: 14px;
-            background: radial-gradient(circle at top left, #1d4ed8 0, #0f172a 55%);
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.25), rgba(34, 197, 94, 0.15));
         }
 
         .card-title {
@@ -76,15 +87,15 @@
             color: var(--text-muted);
         }
 
-        /* Индикатор статуса приёма заявок */
         .status {
             display: inline-flex;
             align-items: center;
             gap: 8px;
             font-size: 0.8rem;
-            padding: 6px 10px;
+            padding: 6px 12px;
             border-radius: 999px;
-            background: rgba(22, 163, 74, 0.12);
+            background: rgba(34, 197, 94, 0.18);
+            border: 1px solid rgba(34, 197, 94, 0.45);
             color: #bbf7d0;
         }
 
@@ -92,10 +103,10 @@
             width: 8px;
             height: 8px;
             border-radius: 50%;
-            background: #22c55e;
+            background: var(--accent);
         }
 
-        /* Основная сетка: слева текст/инфо, справа форма */
+        /* Описание: dwukolumnowy układ – informacje + formularz */
         .card-body {
             display: grid;
             grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
@@ -103,14 +114,13 @@
             padding: 22px;
         }
 
-        /* Левая колонка с описанием и подсказками */
         .info-block h2 {
-            font-size: 1.4rem;
+            font-size: 1.35rem;
             margin-bottom: 8px;
         }
 
         .info-block p {
-            font-size: 0.95rem;
+            font-size: 0.94rem;
             color: var(--text-muted);
             margin-bottom: 12px;
         }
@@ -125,28 +135,27 @@
             display: flex;
             gap: 8px;
             margin-bottom: 6px;
-            color: #e5e7eb;
+            color: var(--text-main);
         }
 
         .info-icon {
-            width: 18px;
-            height: 18px;
+            width: 20px;
+            height: 20px;
             border-radius: 999px;
-            background: rgba(56, 189, 248, 0.16);
+            background: rgba(99, 102, 241, 0.25);
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 0.78rem;
-            color: #38bdf8;
+            color: var(--primary-soft);
             flex-shrink: 0;
         }
 
         .info-note {
-            font-size: 0.8rem;
+            font-size: 0.82rem;
             color: var(--text-muted);
         }
 
-        /* Блок с «быстрыми» способами связи (чипы) */
         .channels {
             margin-top: 10px;
             display: flex;
@@ -155,22 +164,23 @@
         }
 
         .channel-chip {
-            padding: 6px 10px;
+            padding: 6px 11px;
             border-radius: 999px;
-            background: #020617;
-            border: 1px solid rgba(148, 163, 184, 0.4);
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid rgba(148, 163, 184, 0.45);
             font-size: 0.8rem;
             color: var(--text-muted);
         }
 
-        /* Правая колонка — сама форма */
+        /* Описание: formularz rezerwacyjny w prawej kolumnie */
         form {
             display: grid;
             gap: 10px;
-            background: var(--card-bg);
-            border-radius: 18px;
+            background: var(--surface);
+            border-radius: var(--radius-md);
             padding: 16px 16px 18px;
             border: 1px solid rgba(148, 163, 184, 0.4);
+            box-shadow: 0 18px 40px rgba(15, 23, 42, 0.6);
         }
 
         .form-row {
@@ -181,7 +191,7 @@
 
         label {
             display: block;
-            font-size: 0.85rem;
+            font-size: 0.84rem;
             margin-bottom: 3px;
         }
 
@@ -191,16 +201,11 @@
             width: 100%;
             padding: 9px 11px;
             border-radius: 10px;
-            border: 1px solid #4b5563;
+            border: 1px solid rgba(148, 163, 184, 0.7);
             background: #020617;
-            color: #e5e7eb;
+            color: var(--text-main);
             font-size: 0.9rem;
             font-family: inherit;
-        }
-
-        textarea {
-            resize: vertical;
-            min-height: 80px;
         }
 
         input::placeholder,
@@ -208,7 +213,11 @@
             color: #6b7280;
         }
 
-        /* Сообщения об ошибках под полями формы */
+        textarea {
+            resize: vertical;
+            min-height: 82px;
+        }
+
         .form-error {
             font-size: 0.78rem;
             color: #fecaca;
@@ -221,44 +230,44 @@
             color: var(--text-muted);
         }
 
-        /* Кнопка отправки формы */
         .btn-submit {
             padding: 11px 20px;
             border-radius: 999px;
             border: none;
             background: linear-gradient(135deg, var(--primary), var(--accent));
-            color: #ffffff;
+            color: #fff;
             font-weight: 600;
             font-size: 0.95rem;
             cursor: pointer;
-            justify-self: flex-start;
             display: inline-flex;
             align-items: center;
             gap: 8px;
         }
 
         .btn-submit span {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
         }
 
-        /* Блок для вывода «подтверждения заявки» */
+        .btn-submit:hover {
+            filter: brightness(1.08);
+        }
+
         .summary {
             margin-top: 10px;
-            border-radius: 12px;
-            padding: 10px 12px;
-            background: rgba(22, 163, 74, 0.08);
-            border: 1px solid rgba(34, 197, 94, 0.4);
-            font-size: 0.85rem;
+            border-radius: 14px;
+            padding: 12px 14px;
+            background: rgba(34, 197, 94, 0.12);
+            border: 1px solid rgba(34, 197, 94, 0.45);
+            font-size: 0.86rem;
             color: #bbf7d0;
             display: none;
         }
 
         .summary strong {
             display: block;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
         }
 
-        /* Нижняя плашка с мини‑подписью */
         .card-footer {
             padding: 10px 22px 14px;
             border-top: 1px solid rgba(148, 163, 184, 0.4);
@@ -297,16 +306,13 @@
     </style>
 </head>
 <body>
-    <!-- Внешний контейнер, чтобы центрировать карточку по ширине -->
     <div class="shell">
-        <!-- Основная карточка модуля бронирования -->
         <div class="card" aria-label="Moduł rezerwacji wizyty online">
-            <!-- Верхний блок с названием сервиса и статусом приёма заявок -->
             <div class="card-header">
                 <div>
                     <div class="card-title">Rezerwacja wizyty online</div>
                     <div class="card-subtitle">
-                        Formularz przykładowy – możesz dostosować go do dowolnej branży (salon, gabinet, konsultacje).
+                        Formularz przykładowy – możesz go dostosować do dowolnej branży (salon, gabinet, konsultacje).
                     </div>
                 </div>
                 <div class="status">
@@ -315,9 +321,7 @@
                 </div>
             </div>
 
-            <!-- Основная часть: информация + форма -->
             <div class="card-body">
-                <!-- Левая колонка: текстовые блоки и подсказки для клиента -->
                 <section class="info-block" aria-label="Informacje o rezerwacji">
                     <h2>Jak to działa?</h2>
                     <p>
@@ -350,10 +354,8 @@
                     </div>
                 </section>
 
-                <!-- Правая колонка: интерактивная форма с валидацией -->
                 <section aria-label="Formularz rezerwacyjny">
                     <form id="booking-form" novalidate>
-                        <!-- Первая строка: имя и e‑mail -->
                         <div class="form-row">
                             <div>
                                 <label for="name">Imię i nazwisko*</label>
@@ -367,7 +369,6 @@
                             </div>
                         </div>
 
-                        <!-- Вторая строка: телефон и выбор услуги -->
                         <div class="form-row">
                             <div>
                                 <label for="phone">Telefon*</label>
@@ -386,7 +387,6 @@
                             </div>
                         </div>
 
-                        <!-- Третья строка: дата и формат (online/offline) -->
                         <div class="form-row">
                             <div>
                                 <label for="date">Preferowana data*</label>
@@ -403,31 +403,24 @@
                             </div>
                         </div>
 
-                        <!-- Поле с дополнительной информацией -->
                         <div>
                             <label for="message">Dodatkowe informacje</label>
                             <textarea id="message" name="message" placeholder="Np. godziny, które pasują, krótki opis potrzeby, ważne informacje zdrowotne itp."></textarea>
                         </div>
 
-                        <!-- Кнопка отправки и текст‑подсказка -->
                         <button class="btn-submit" type="submit">
                             <span>➤</span> Wyślij zgłoszenie
                         </button>
                         <p class="form-note">
-                            Pola oznaczone * są obowiązkowe. Dane z formularza w wersji produkcyjnej mogą być wysyłane
-                            na e‑mail lub do systemu rezerwacji przez API.
+                            Pola oznaczone * są obowiązkowe. W wersji produkcyjnej dane mogą być wysyłane na e‑mail lub do systemu rezerwacji przez API.
                         </p>
 
-                        <!-- Блок для вывода итогового резюме заявки -->
                         <div id="summary" class="summary" aria-live="polite"></div>
-
-                        <!-- Общее сообщение об ошибке для всей формы -->
                         <div class="form-error" data-error-for="form"></div>
                     </form>
                 </section>
             </div>
 
-            <!-- Низ карточки с пояснением для портфолио -->
             <div class="card-footer">
                 <span>Moduł pokazowy: formularz rezerwacji z walidacją po stronie front‑endu.</span>
                 <span>Łatwo przenieść do WordPressa lub aplikacji React.</span>
@@ -435,76 +428,65 @@
         </div>
     </div>
 
-    <!-- Логика: валидация полей, отображение ошибок и краткого резюме заявки -->
     <script>
-        // Ссылка на форму и блок для резюме
-        const form = document.getElementById("booking-form");
-        const summaryBox = document.getElementById("summary");
+        // Автор: Frean_zy
+        // Описание: валидация полей, вывод ошибок и формирование резюме заявки
 
-        // Обработчик отправки формы
+        var form = document.getElementById("booking-form");
+        var summaryBox = document.getElementById("summary");
+
         form.addEventListener("submit", function (event) {
-            // Блокируем стандартную отправку, работаем только на фронтенде
             event.preventDefault();
-
-            // Очищаем предыдущие ошибки и резюме
             clearErrors();
             summaryBox.style.display = "none";
             summaryBox.innerHTML = "";
 
-            // Считываем значения полей и удаляем лишние пробелы
-            const name = form.name.value.trim();
-            const email = form.email.value.trim();
-            const phone = form.phone.value.trim();
-            const service = form.service.value;
-            const date = form.date.value;
-            const mode = form.mode.value;
-            const message = form.message.value.trim();
+            var name = form.name.value.trim();
+            var email = form.email.value.trim();
+            var phone = form.phone.value.trim();
+            var service = form.service.value;
+            var date = form.date.value;
+            var mode = form.mode.value;
+            var message = form.message.value.trim();
 
-            let hasError = false;
+            var hasError = false;
 
-            // Проверка имени
             if (!name) {
                 showError("name", "Podaj imię i nazwisko.");
                 hasError = true;
             }
 
-            // Простая проверка e‑mail
             if (!email || !email.includes("@")) {
                 showError("email", "Podaj poprawny adres e‑mail.");
                 hasError = true;
             }
 
-            // Проверка телефона по длине (для демо)
             if (!phone || phone.length < 6) {
                 showError("phone", "Podaj numer telefonu (min. 6 znaków).");
                 hasError = true;
             }
 
-            // Проверка выбранной услуги
             if (!service) {
                 showError("service", "Wybierz usługę.");
                 hasError = true;
             }
 
-            // Проверка даты
             if (!date) {
                 showError("date", "Wybierz preferowaną datę.");
                 hasError = true;
             }
 
-            // Если есть ошибки, выводим общее сообщение и выходим
             if (hasError) {
                 showError("form", "Sprawdź poprawność danych w formularzu.");
                 return;
             }
 
-            // Если всё ок – формируем человеко‑читаемое резюме заявки
-            const serviceLabel = getServiceLabel(service);
-            const modeLabel = getModeLabel(mode);
+            var serviceLabel = getServiceLabel(service);
+            var modeLabel = getModeLabel(mode);
 
             summaryBox.innerHTML =
                 "<strong>Dziękujemy za zgłoszenie!</strong>" +
-                "Oto podsumowanie Twojej prośby:<br>" +
+                " Oto podsumowanie Twojej prośby:<br>" +
                 "- Imię i nazwisko: <b>" + escapeHtml(name) + "</b><br>" +
                 "- E‑mail: <b>" + escapeHtml(email) + "</b><br>" +
                 "- Telefon: <b>" + escapeHtml(phone) + "</b><br>" +
@@ -514,27 +496,20 @@
                 (message ? "<br>- Notatka: <b>" + escapeHtml(message) + "</b>" : "");
 
             summaryBox.style.display = "block";
-
-            // В демо‑версии мы не отправляем данные на сервер, только сбрасываем форму
             form.reset();
         });
 
-        // Функция для отображения ошибки под конкретным полем
         function showError(fieldName, message) {
-            const el = document.querySelector('[data-error-for="' + fieldName + '"]');
-            if (el) {
-                el.textContent = message;
-            }
+            var el = document.querySelector('[data-error-for="' + fieldName + '"]');
+            if (el) el.textContent = message;
         }
 
-        // Функция для очистки всех сообщений об ошибках
         function clearErrors() {
             document.querySelectorAll(".form-error").forEach(function (el) {
                 el.textContent = "";
             });
         }
 
-        // Функции для перевода значений select в человеко‑читаемый текст
         function getServiceLabel(value) {
             if (value === "consult") return "Konsultacja wstępna";
             if (value === "visit") return "Wizyta standardowa";
@@ -548,16 +523,9 @@
             return "W gabinecie / w salonie";
         }
 
-        // Простая защита от вставки HTML в резюме заявки
         function escapeHtml(str) {
             return str.replace(/[&<>"']/g, function (ch) {
-                const map = {
-                    "&": "&amp;",
-                    "<": "&lt;",
-                    ">": "&gt;",
-                    '"': "&quot;",
-                    "'": "&#039;"
-                };
+                var map = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" };
                 return map[ch] || ch;
             });
         }
