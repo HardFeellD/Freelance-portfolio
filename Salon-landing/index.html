@@ -2,64 +2,79 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-    <!-- Описание: базовая SEO‑информация и кодировка -->
+    <!-- Описание: базовые метаданные страницы салона красоты -->
     <meta charset="UTF-8">
-    <title>SALON BEAUTY – profesjonalny salon kosmetyczny</title>
+    <title>SALON BEAUTY – nowoczesny salon kosmetyczny</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Nowoczesny salon kosmetyczny w Twoim mieście. Zabiegi na twarz, manicure, pedicure, stylizacja brwi i rzęs. Umów wizytę online.">
+    <meta name="description" content="Nowoczesny salon kosmetyczny: zabiegi na twarz, manicure, pedicure, stylizacja brwi i rzęs. Umów wizytę online w SALON BEAUTY.">
 
-    <!-- Описание: базовые стили, без внешних библиотек -->
+    <!-- Описание: подключение современного шрифта и подготовка плавной анимации -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
-        /* Автор: Frean_zy */
-        /* Общие настройки шрифтов, цветов и отступов для всего документа */
+        /* Описание: корневые CSS‑переменные для цветов и размеров */
         :root {
-            --primary: #e85c8b;
-            --primary-dark: #c14973;
-            --bg-light: #fff6fb;
-            --text-main: #2b2b2b;
-            --text-muted: #777777;
-            --max-width: 1100px;
+            --primary: #e85c8b;          /* основной акцентный цвет */
+            --primary-dark: #c14973;     /* более тёмный акцент для наведения */
+            --bg: #050816;               /* фоновый цвет за контентом */
+            --surface: #090b1f;          /* основной фон карточек */
+            --surface-soft: #0f1227;     /* более мягкая подложка */
+            --border-soft: rgba(248, 187, 208, 0.3); /* мягкая рамка */
+            --text-main: #f9fafb;        /* основной текст */
+            --text-muted: #9ca3af;       /* приглушённый текст */
+            --radius-lg: 26px;           /* крупное скругление */
+            --radius-md: 18px;           /* среднее скругление */
+            --max-width: 1120px;         /* максимальная ширина контента */
         }
 
+        /* Описание: базовый сброс отступов и наследование боксовой модели */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
 
+        /* Описание: общее оформление страницы и фоновая заливка */
         body {
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            min-height: 100vh;
+            font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
             color: var(--text-main);
-            background-color: #ffffff;
-            line-height: 1.6;
+            background:
+                radial-gradient(circle at top left, rgba(248, 187, 208, 0.16) 0, transparent 45%),
+                radial-gradient(circle at top right, rgba(129, 140, 248, 0.18) 0, transparent 55%),
+                linear-gradient(160deg, #020617 0%, #020617 40%, #050816 100%);
         }
 
+        /* Описание: ссылки без подчёркивания по умолчанию */
         a {
             color: inherit;
             text-decoration: none;
         }
 
+        /* Описание: изображения не выходят за пределы контейнера */
         img {
             max-width: 100%;
             display: block;
         }
 
-        /* Контейнер ограничивает ширину контента и центрирует его */
+        /* Описание: универсальный контейнер для ограничения ширины */
         .container {
             width: 100%;
             max-width: var(--max-width);
             margin: 0 auto;
-            padding: 0 16px;
+            padding: 0 18px;
         }
 
-        /* Шапка сайта с логотипом и навигацией */
+        /* Описание: шапка сайта с логотипом и навигацией */
         header {
             position: sticky;
             top: 0;
-            z-index: 100;
-            background-color: #ffffffcc;
-            backdrop-filter: blur(8px);
-            border-bottom: 1px solid #f1d8e5;
+            z-index: 20;
+            backdrop-filter: blur(14px);
+            background: linear-gradient(to bottom, rgba(5, 8, 22, 0.9), rgba(5, 8, 22, 0.65), transparent);
+            border-bottom: 1px solid rgba(148, 163, 184, 0.25);
         }
 
         .header-inner {
@@ -70,56 +85,73 @@
         }
 
         .logo {
-            font-weight: 700;
-            font-size: 1.1rem;
-            letter-spacing: 0.08em;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
         }
 
-        .logo span {
+        .logo-main {
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: 0.18em;
+        }
+
+        .logo-main span {
             color: var(--primary);
+        }
+
+        .logo-sub {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            letter-spacing: 0.14em;
         }
 
         nav ul {
             display: flex;
-            gap: 20px;
+            align-items: center;
             list-style: none;
+            gap: 20px;
+            font-size: 0.9rem;
         }
 
         nav a {
-            font-size: 0.95rem;
             color: var(--text-muted);
         }
 
         nav a:hover {
-            color: var(--primary);
+            color: #fef2f2;
         }
 
-        /* Кнопка записи / CTA в шапке */
         .btn-header {
             padding: 8px 16px;
             border-radius: 999px;
-            background: var(--primary);
-            color: #ffffff;
-            font-size: 0.9rem;
-            border: none;
+            border: 1px solid rgba(248, 187, 208, 0.7);
+            background: radial-gradient(circle at top left, rgba(248, 187, 208, 0.25), rgba(236, 72, 153, 0.7));
+            color: #fff;
+            font-size: 0.85rem;
             cursor: pointer;
-            transition: background 0.2s ease, transform 0.1s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-header span {
+            font-size: 0.95rem;
         }
 
         .btn-header:hover {
-            background: var(--primary-dark);
-            transform: translateY(-1px);
+            filter: brightness(1.08);
         }
 
-        /* Герой‑секция (первый экран с заголовком и картинкой) */
+        /* Описание: главный блок (герой) с крупным фото и описанием */
         .hero {
-            background: linear-gradient(135deg, #fff6fb 0%, #ffffff 50%, #ffe1f1 100%);
-            padding: 60px 0 40px;
+            padding: 52px 0 40px;
         }
 
         .hero-inner {
             display: grid;
-            grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+            grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
             gap: 32px;
             align-items: center;
         }
@@ -130,23 +162,24 @@
             gap: 8px;
             padding: 4px 10px;
             border-radius: 999px;
-            background: #ffffffcc;
-            border: 1px solid #f4c7dd;
+            background: rgba(15, 23, 42, 0.85);
+            border: 1px solid rgba(248, 187, 208, 0.5);
             font-size: 0.8rem;
             color: var(--text-muted);
-            margin-bottom: 16px;
+            margin-bottom: 18px;
         }
 
-        .hero-badge-dot {
+        .hero-dot {
             width: 8px;
             height: 8px;
-            border-radius: 50%;
-            background: #5ac18e;
+            border-radius: 999px;
+            background: #4ade80;
         }
 
         .hero-title {
             font-size: clamp(2.1rem, 3vw, 2.6rem);
             margin-bottom: 12px;
+            letter-spacing: 0.02em;
         }
 
         .hero-highlight {
@@ -155,34 +188,33 @@
 
         .hero-text {
             color: var(--text-muted);
+            font-size: 0.96rem;
             margin-bottom: 20px;
         }
 
         .hero-list {
             list-style: none;
-            margin-bottom: 24px;
+            margin-bottom: 22px;
         }
 
         .hero-list li {
             display: flex;
             align-items: center;
             gap: 8px;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             margin-bottom: 6px;
-            color: var(--text-main);
         }
 
-        .hero-list-icon {
+        .hero-check {
             width: 18px;
             height: 18px;
-            border-radius: 50%;
-            background: #e7f7ef;
+            border-radius: 999px;
+            background: rgba(22, 163, 74, 0.18);
+            color: #bbf7d0;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #2a8b57;
-            font-size: 0.8rem;
-            flex-shrink: 0;
+            font-size: 0.78rem;
         }
 
         .hero-actions {
@@ -190,216 +222,214 @@
             flex-wrap: wrap;
             gap: 12px;
             align-items: center;
+            margin-bottom: 8px;
         }
 
         .btn-primary {
-            padding: 12px 24px;
+            padding: 12px 22px;
             border-radius: 999px;
-            background: var(--primary);
-            color: #ffffff;
             border: none;
-            cursor: pointer;
+            background: radial-gradient(circle at left, #fb7185, #ec4899);
+            color: #fff;
             font-weight: 600;
-            font-size: 0.95rem;
-            transition: background 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
-            box-shadow: 0 10px 25px rgba(232, 92, 139, 0.3);
+            font-size: 0.94rem;
+            cursor: pointer;
+            box-shadow: 0 20px 45px rgba(236, 72, 153, 0.55);
         }
 
         .btn-primary:hover {
-            background: var(--primary-dark);
-            transform: translateY(-1px);
-            box-shadow: 0 14px 30px rgba(232, 92, 139, 0.35);
+            filter: brightness(1.07);
         }
 
         .btn-secondary {
             padding: 10px 18px;
             border-radius: 999px;
-            background: #ffffff;
-            color: var(--primary);
-            border: 1px solid #f2bcd5;
+            border: 1px solid rgba(248, 187, 208, 0.6);
+            background: transparent;
+            color: var(--text-main);
+            font-size: 0.88rem;
             cursor: pointer;
-            font-size: 0.9rem;
         }
 
         .hero-note {
             font-size: 0.8rem;
             color: var(--text-muted);
-            margin-top: 6px;
         }
 
-        /* Правая часть героя: условная картинка/карта + карточки */
-        .hero-image {
+        /* Описание: правая часть героя – крупное фото и карточка */
+        .hero-media {
             position: relative;
             min-height: 260px;
         }
 
-        .hero-card-main {
+        .hero-photo {
+            position: relative;
+            border-radius: 26px;
+            overflow: hidden;
+            box-shadow: 0 28px 70px rgba(15, 23, 42, 0.98);
+        }
+
+        .hero-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scale(1.04);
+        }
+
+        .hero-photo::after {
+            /* затемняющий градиент поверх фото для читаемости текста */
+            content: "";
             position: absolute;
             inset: 0;
-            margin: auto;
-            width: 90%;
-            max-width: 360px;
-            background: #ffffff;
-            border-radius: 24px;
-            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.1);
-            padding: 18px 18px 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
+            background: linear-gradient(145deg, rgba(5, 8, 22, 0.45), rgba(5, 8, 22, 0.15), transparent 70%);
         }
 
-        .hero-card-image {
-            height: 140px;
-            border-radius: 18px;
-            background-image: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
-            display: flex;
-            align-items: flex-end;
-            justify-content: flex-start;
-            padding: 14px;
-            color: #ffffff;
+        .hero-overlay {
+            position: absolute;
+            left: 16px;
+            bottom: 16px;
+            padding: 10px 12px;
+            border-radius: 16px;
+            background: rgba(15, 23, 42, 0.92);
+            border: 1px solid rgba(248, 187, 208, 0.5);
+            font-size: 0.8rem;
+            max-width: 78%;
+        }
+
+        .hero-overlay-title {
+            font-size: 0.9rem;
             font-weight: 600;
-            font-size: 0.98rem;
+            margin-bottom: 2px;
         }
 
-        .hero-card-badge {
-            font-size: 0.75rem;
-            opacity: 0.9;
-        }
-
-        .hero-card-row {
+        .hero-overlay-row {
             display: flex;
-            justify-content: space-between;
             gap: 10px;
             margin-top: 6px;
         }
 
-        .hero-mini {
-            flex: 1;
-            border-radius: 16px;
-            padding: 10px 12px;
-            background: #fff4fa;
-            font-size: 0.8rem;
-        }
-
-        .hero-mini strong {
-            display: block;
-            font-size: 0.9rem;
-            margin-bottom: 4px;
-        }
-
-        .hero-tag {
-            display: inline-block;
-            margin-top: 4px;
-            padding: 2px 8px;
+        .hero-overlay-pill {
+            padding: 4px 8px;
             border-radius: 999px;
-            background: #ffffff;
-            font-size: 0.7rem;
-            color: var(--primary);
+            background: rgba(248, 187, 208, 0.13);
+            font-size: 0.72rem;
+            color: #fecdd3;
         }
 
-        /* Общие отступы для секций */
+        /* Описание: общие отступы для секций */
         section {
-            padding: 48px 0;
+            padding: 40px 0;
         }
 
         .section-title {
+            font-size: 1.5rem;
             text-align: center;
-            font-size: 1.6rem;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .section-subtitle {
             text-align: center;
-            color: var(--text-muted);
             font-size: 0.95rem;
-            margin-bottom: 28px;
+            color: var(--text-muted);
+            margin-bottom: 26px;
         }
 
-        /* Секция "Услуги" с карточками */
-        .grid {
+        /* Описание: сетка карточек услуг */
+        .grid-3 {
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 20px;
+            gap: 18px;
         }
 
         .card {
-            border-radius: 18px;
-            padding: 18px 18px 20px;
-            background: #ffffff;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04);
-            border: 1px solid #f6e1ee;
+            border-radius: var(--radius-md);
+            background: radial-gradient(circle at top left, rgba(248, 187, 208, 0.16), transparent 60%),
+                        var(--surface);
+            border: 1px solid rgba(248, 187, 208, 0.25);
+            padding: 16px 15px 18px;
+            box-shadow: 0 18px 42px rgba(15, 23, 42, 0.55);
         }
 
         .card h3 {
             font-size: 1rem;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .card p {
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             color: var(--text-muted);
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .card ul {
             list-style: none;
-            font-size: 0.9rem;
-            color: var(--text-main);
+            font-size: 0.88rem;
         }
 
         .card ul li {
             margin-bottom: 4px;
         }
 
-        /* Сетка цен */
+        /* Описание: блок цен с тремя пакетами */
         .pricing-grid {
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 20px;
+            gap: 18px;
         }
 
         .price-card {
-            border-radius: 18px;
-            padding: 20px;
-            background: #fff6fb;
-            border: 1px solid #f4c7dd;
+            border-radius: var(--radius-md);
+            background: var(--surface-soft);
+            border: 1px solid rgba(248, 187, 208, 0.22);
+            padding: 18px 16px 20px;
+            box-shadow: 0 18px 42px rgba(15, 23, 42, 0.55);
         }
 
         .price-card h3 {
             font-size: 1rem;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .price-value {
             font-size: 1.6rem;
             font-weight: 700;
-            color: var(--primary-dark);
-            margin-bottom: 8px;
+            color: var(--primary);
+            margin-bottom: 6px;
         }
 
         .price-note {
-            font-size: 0.8rem;
+            font-size: 0.82rem;
             color: var(--text-muted);
             margin-bottom: 10px;
         }
 
-        /* Блок отзывов клиентов */
-        .testimonials {
-            background: var(--bg-light);
+        .price-card ul {
+            list-style: none;
+            font-size: 0.88rem;
         }
 
-        .testimonial-list {
+        .price-card ul li {
+            margin-bottom: 4px;
+        }
+
+        /* Описание: блок отзывов клиентов */
+        .testimonials {
+            background: radial-gradient(circle at top, rgba(15, 23, 42, 0.9), rgba(5, 8, 22, 0.98));
+        }
+
+        .testimonial-grid {
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
             gap: 18px;
         }
 
         .testimonial {
-            border-radius: 18px;
-            padding: 18px;
-            background: #ffffff;
-            border: 1px solid #f4c7dd;
+            border-radius: var(--radius-md);
+            background: var(--surface);
+            border: 1px solid rgba(248, 187, 208, 0.22);
+            padding: 16px 15px 18px;
             font-size: 0.9rem;
+            box-shadow: 0 16px 36px rgba(15, 23, 42, 0.6);
         }
 
         .testimonial-name {
@@ -412,43 +442,48 @@
             color: var(--text-muted);
         }
 
-        /* Секция контактов с формой */
+        /* Описание: контактный блок с формой записи */
         .contact-grid {
             display: grid;
-            grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+            grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
             gap: 26px;
         }
 
         .contact-info p {
+            font-size: 0.94rem;
             color: var(--text-muted);
             margin-bottom: 10px;
-            font-size: 0.95rem;
         }
 
         .contact-highlight {
             font-weight: 600;
-            color: var(--primary-dark);
+            color: #fee2e2;
         }
 
         .contact-chips {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 6px;
-            margin-bottom: 12px;
+            gap: 8px;
+            margin: 6px 0 12px;
         }
 
         .chip {
-            padding: 6px 12px;
+            padding: 6px 11px;
             border-radius: 999px;
-            background: #fff6fb;
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid rgba(148, 163, 184, 0.45);
             font-size: 0.8rem;
-            color: var(--primary-dark);
+            color: var(--text-muted);
         }
 
         form {
             display: grid;
             gap: 10px;
+            background: rgba(15, 23, 42, 0.98);
+            border-radius: var(--radius-md);
+            padding: 16px 15px 18px;
+            border: 1px solid rgba(248, 187, 208, 0.3);
+            box-shadow: 0 18px 36px rgba(15, 23, 42, 0.7);
         }
 
         .form-row {
@@ -458,51 +493,58 @@
         }
 
         label {
-            font-size: 0.85rem;
-            font-weight: 500;
-            margin-bottom: 2px;
             display: block;
+            font-size: 0.84rem;
+            margin-bottom: 2px;
         }
 
-        input, select, textarea {
+        input,
+        select,
+        textarea {
             width: 100%;
             padding: 9px 11px;
             border-radius: 10px;
-            border: 1px solid #e3c3d5;
+            border: 1px solid rgba(148, 163, 184, 0.7);
+            background: #020617;
+            color: var(--text-main);
             font-size: 0.9rem;
             font-family: inherit;
-            resize: vertical;
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: #6b7280;
         }
 
         textarea {
-            min-height: 80px;
-        }
-
-        .form-note {
-            font-size: 0.75rem;
-            color: var(--text-muted);
+            resize: vertical;
+            min-height: 82px;
         }
 
         .form-error {
             font-size: 0.78rem;
-            color: #c0392b;
-            margin-top: 2px;
+            color: #fecaca;
+            min-height: 14px;
         }
 
-        /* Подвал сайта с контактами и ссылками */
+        .form-note {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+
         footer {
-            border-top: 1px solid #f2d7e6;
-            padding: 18px 0 24px;
-            font-size: 0.85rem;
+            border-top: 1px solid rgba(148, 163, 184, 0.3);
+            padding: 16px 0 22px;
+            font-size: 0.8rem;
             color: var(--text-muted);
         }
 
         .footer-inner {
             display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
         }
 
         .footer-links {
@@ -510,19 +552,19 @@
             gap: 14px;
         }
 
-        /* Адаптивные стили для планшетов и телефонов */
+        /* Описание: адаптивные правки под планшеты и телефоны */
         @media (max-width: 900px) {
             .hero-inner {
                 grid-template-columns: minmax(0, 1fr);
             }
 
-            .hero-image {
+            .hero-media {
                 order: -1;
             }
 
-            .grid,
+            .grid-3,
             .pricing-grid,
-            .testimonial-list {
+            .testimonial-grid {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
             }
 
@@ -537,23 +579,13 @@
             }
 
             .hero {
-                padding-top: 40px;
+                padding-top: 36px;
             }
 
-            .grid,
+            .grid-3,
             .pricing-grid,
-            .testimonial-list {
+            .testimonial-grid {
                 grid-template-columns: minmax(0, 1fr);
-            }
-
-            .hero-card-main {
-                position: static;
-                width: 100%;
-                box-shadow: 0 14px 35px rgba(0, 0, 0, 0.08);
-            }
-
-            header {
-                position: static;
             }
 
             .form-row {
@@ -568,10 +600,13 @@
     </style>
 </head>
 <body>
-    <!-- Шапка сайта с логотипом и ссылками на основные секции -->
+    <!-- Описание: шапка сайта с логотипом и ссылками на основные секции -->
     <header>
         <div class="container header-inner">
-            <div class="logo">SALON <span>BEAUTY</span></div>
+            <div class="logo">
+                <div class="logo-main">SALON <span>BEAUTY</span></div>
+                <div class="logo-sub">kosmetologia • manicure • brwi & rzęsy</div>
+            </div>
             <nav aria-label="Główna nawigacja">
                 <ul>
                     <li><a href="#services">Usługi</a></li>
@@ -580,39 +615,32 @@
                     <li><a href="#contact">Kontakt</a></li>
                 </ul>
             </nav>
-            <button class="btn-header" type="button" data-scroll="#contact">Umów wizytę</button>
+            <button class="btn-header" type="button" data-scroll="#contact">
+                <span>●</span> Umów wizytę
+            </button>
         </div>
     </header>
 
-    <!-- Герой‑секция: главное предложение салона -->
+    <!-- Описание: главный экран с крупным фото салона и кнопкой записи -->
     <section class="hero">
         <div class="container hero-inner">
-            <!-- Левая колонка: текст и кнопки -->
+            <!-- Левая колонка с текстом и кнопками -->
             <div>
                 <div class="hero-badge">
-                    <span class="hero-badge-dot"></span>
-                    <span>Nowoczesny salon kosmetyczny w Twoim mieście</span>
+                    <span class="hero-dot"></span>
+                    <span>Nowoczesny salon kosmetyczny w centrum miasta</span>
                 </div>
                 <h1 class="hero-title">
                     Poczuj <span class="hero-highlight">piękno</span> i relaks<br> w SALON BEAUTY
                 </h1>
                 <p class="hero-text">
-                    Zabiegi na twarz, manicure, pedicure oraz stylizacja brwi i rzęs w przytulnej atmosferze.
-                    Dbamy o każdy detal – od pierwszej konsultacji po efekt końcowy.
+                    Zabiegi na twarz, manicure, pedicure oraz stylizacja brwi i rzęs w przytulnej,
+                    kameralnej przestrzeni. Łączymy profesjonalną kosmetologię z atmosferą domowego spa.
                 </p>
                 <ul class="hero-list">
-                    <li>
-                        <span class="hero-list-icon">✓</span>
-                        Doświadczeni kosmetolodzy i bezpieczne produkty.
-                    </li>
-                    <li>
-                        <span class="hero-list-icon">✓</span>
-                        Elastyczne godziny wizyt – także wieczorem.
-                    </li>
-                    <li>
-                        <span class="hero-list-icon">✓</span>
-                        Rezerwacja online i przypomnienia o wizycie.
-                    </li>
+                    <li><span class="hero-check">✓</span> Doświadczeni kosmetolodzy i sprawdzone produkty.</li>
+                    <li><span class="hero-check">✓</span> Elastyczne godziny wizyt, również wieczorem.</li>
+                    <li><span class="hero-check">✓</span> Rezerwacja online i przypomnienia o wizycie.</li>
                 </ul>
                 <div class="hero-actions">
                     <button class="btn-primary" type="button" data-scroll="#contact">
@@ -627,35 +655,21 @@
                 </p>
             </div>
 
-            <!-- Правая колонка: условная карточка салона -->
-            <div class="hero-image" aria-hidden="true">
-                <div class="hero-card-main">
-                    <div class="hero-card-image">
-                        <div>
-                            <div class="hero-card-badge">Salon beauty • Centrum miasta</div>
-                            <div>Nowoczesne wnętrza i komfortowa strefa relaksu</div>
+            <!-- Правая колонка с фотографией салона и краткой карточкой -->
+            <div class="hero-media" aria-hidden="true">
+                <div class="hero-photo">
+                    <!-- Описание: тематическое фото салона красоты (можно заменить на своё) -->
+                    <img src="https://images.pexels.com/photos/3738341/pexels-photo-3738341.jpeg?auto=compress&cs=tinysrgb&w=1200"
+                         alt="Wnętrze nowoczesnego salonu kosmetycznego">
+                    <div class="hero-overlay">
+                        <div class="hero-overlay-title">Strefa relaksu SALON BEAUTY</div>
+                        <div style="font-size:0.8rem;color:#e5e7eb;">
+                            Przytulne wnętrza, miękkie światło i spokojna muzyka – idealne warunki,
+                            aby na chwilę odciąć się od codzienności.
                         </div>
-                    </div>
-                    <div class="hero-card-row">
-                        <div class="hero-mini">
-                            <strong>4.9 / 5</strong>
-                            <div class="hero-tag">Ocena klientek</div>
-                            <p>Na podstawie opinii w Google i social media.</p>
-                        </div>
-                        <div class="hero-mini">
-                            <strong>+1500</strong>
-                            <div class="hero-tag">Udanych wizyt</div>
-                            <p>Stałe klientki i klientki z polecenia.</p>
-                        </div>
-                    </div>
-                    <div class="hero-card-row">
-                        <div class="hero-mini">
-                            <strong>Higiena</strong>
-                            <p>Każdy zabieg wykonywany jest zgodnie z procedurami bezpieczeństwa.</p>
-                        </div>
-                        <div class="hero-mini">
-                            <strong>Lokalizacja</strong>
-                            <p>Blisko centrum, dogodny dojazd komunikacją miejską.</p>
+                        <div class="hero-overlay-row">
+                            <div class="hero-overlay-pill">4.9 / 5 • opinie klientek</div>
+                            <div class="hero-overlay-pill">+1500 udanych wizyt</div>
                         </div>
                     </div>
                 </div>
@@ -663,23 +677,24 @@
         </div>
     </section>
 
-    <!-- Секция "Услуги" -->
+    <!-- Описание: блок услуг салона с тремя основными направлениями -->
     <section id="services">
         <div class="container">
             <h2 class="section-title">Nasze usługi</h2>
             <p class="section-subtitle">
-                Dobieramy zabiegi indywidualnie do potrzeb skóry i stylu życia. Poniżej zobaczysz
-                najczęściej wybierane usługi w naszym salonie.
+                Dobieramy zabiegi indywidualnie do potrzeb skóry, pory roku i stylu życia.
+                Poniżej przykładowe obszary, w których najczęściej pomagamy naszym klientkom.
             </p>
 
-            <div class="grid" aria-label="Lista głównych usług">
+            <div class="grid-3" aria-label="Główne kategorie usług">
                 <article class="card">
                     <h3>Pielęgnacja twarzy</h3>
                     <p>
-                        Zabiegi nawilżające, oczyszczające i anti‑aging z wykorzystaniem nowoczesnych technologii.
+                        Zabiegi nawilżające, oczyszczające i anti‑aging z wykorzystaniem nowoczesnych
+                        technologii oraz profesjonalnej diagnostyki skóry.
                     </p>
                     <ul>
-                        <li>• Oczyszczanie manualne lub kwasami</li>
+                        <li>• Oczyszczanie manualne i kwasowe</li>
                         <li>• Zabiegi anti‑aging i liftingujące</li>
                         <li>• Indywidualne plany pielęgnacji domowej</li>
                     </ul>
@@ -688,22 +703,22 @@
                 <article class="card">
                     <h3>Manicure i pedicure</h3>
                     <p>
-                        Klasyczny, hybrydowy i SPA – z dbałością o detale i higienę zabiegu.
+                        Stylizacja paznokci, która łączy estetykę z dokładną pielęgnacją skóry dłoni i stóp.
                     </p>
                     <ul>
                         <li>• Manicure klasyczny i hybrydowy</li>
                         <li>• Pedicure pielęgnacyjny i SPA</li>
-                        <li>• Stylizacja paznokci i zdobienia</li>
+                        <li>• Stylizacja i delikatne zdobienia</li>
                     </ul>
                 </article>
 
                 <article class="card">
                     <h3>Brwi i rzęsy</h3>
                     <p>
-                        Podkreślamy naturalne piękno, dopasowując kształt i kolor do rysów twarzy.
+                        Naturalne podkreślenie urody dzięki dopasowaniu kształtu i koloru do rysów twarzy.
                     </p>
                     <ul>
-                        <li>• Henna brwi i regulacja</li>
+                        <li>• Henna pudrowa i regulacja brwi</li>
                         <li>• Lifting i laminacja rzęs</li>
                         <li>• Stylizacja brwi metodą Brow Bar</li>
                     </ul>
@@ -712,16 +727,16 @@
         </div>
     </section>
 
-    <!-- Секция "Цены" -->
+    <!-- Описание: примерный прайс‑лист с тремя пакетами -->
     <section id="pricing">
         <div class="container">
             <h2 class="section-title">Przykładowy cennik</h2>
             <p class="section-subtitle">
-                Ostateczna cena zależy od zakresu zabiegu i długości wizyty. Poniżej orientacyjne pakiety,
-                które najczęściej wybierają nasze klientki.
+                Ostateczna cena zależy od zakresu zabiegu i długości wizyty. Poniższe pakiety
+                pokazują orientacyjne poziomy inwestycji w pielęgnację.
             </p>
 
-            <div class="pricing-grid" aria-label="Przykładowe pakiety cenowe">
+            <div class="pricing-grid" aria-label="Pakiety cenowe">
                 <article class="price-card">
                     <h3>Pierwsza wizyta</h3>
                     <div class="price-value">od 180 zł</div>
@@ -758,19 +773,20 @@
         </div>
     </section>
 
-    <!-- Секция "Отзывы" -->
+    <!-- Описание: блок с отзывами трёх клиенток -->
     <section id="testimonials" class="testimonials">
         <div class="container">
             <h2 class="section-title">Co mówią nasze klientki</h2>
             <p class="section-subtitle">
-                Najlepszą wizytówką salonu są powroty zadowolonych klientek. Oto kilka przykładów opinii.
+                Najlepszą wizytówką salonu są powroty zadowolonych klientek. Poniżej kilka przykładów opinii.
             </p>
 
-            <div class="testimonial-list" aria-label="Opinie klientów">
+            <div class="testimonial-grid" aria-label="Opinie klientów">
                 <article class="testimonial">
                     <p>
-                        „Najlepszy manicure, jaki miałam. Lakier trzymał się ponad 3 tygodnie, a w salonie
-                        panuje bardzo miła atmosfera. Na pewno wrócę!”
+                        „Najlepszy manicure w mieście. Lakier trzymał się ponad 3 tygodnie,
+                        a w salonie panuje bardzo przyjazna atmosfera. Wreszcie znalazłam
+                        miejsce, do którego chcę wracać.”
                     </p>
                     <div class="testimonial-name">Anna, 32 lata</div>
                     <div class="testimonial-tag">manicure & pedicure</div>
@@ -778,8 +794,8 @@
 
                 <article class="testimonial">
                     <p>
-                        „Po serii zabiegów na twarz moja skóra wreszcie wygląda świeżo. Świetne podejście –
-                        wszystko dokładnie wyjaśnione przed rozpoczęciem.”
+                        „Po serii zabiegów na twarz moja skóra jest wyraźnie gładsza i bardziej
+                        rozświetlona. Duży plus za dokładne wyjaśnienie każdego kroku zabiegu.”
                     </p>
                     <div class="testimonial-name">Magda, 28 lat</div>
                     <div class="testimonial-tag">zabiegi na twarz</div>
@@ -787,8 +803,9 @@
 
                 <article class="testimonial">
                     <p>
-                        „Lifting rzęs i stylizacja brwi wyszły bardzo naturalnie. Dokładnie taki efekt, o jaki
-                        prosiłam, bez przesady i sztuczności.”
+                        „Stylizacja brwi i lifting rzęs wyszły bardzo naturalnie – dokładnie tak,
+                        jak prosiłam. Zero efektu przerysowania, za to ogromny efekt „wow” rano
+                        przed lustrem.”
                     </p>
                     <div class="testimonial-name">Kasia, 35 lat</div>
                     <div class="testimonial-tag">brwi & rzęsy</div>
@@ -797,9 +814,10 @@
         </div>
     </section>
 
-    <!-- Секция "Контакты" с формой записи -->
+    <!-- Описание: блок контактов и форма записи на визит -->
     <section id="contact">
         <div class="container contact-grid">
+            <!-- Левая колонка с контактами и подсказками -->
             <div class="contact-info">
                 <h2 class="section-title" style="text-align:left;">Umów wizytę</h2>
                 <p>
@@ -817,10 +835,12 @@
                     <div class="chip">Instagram DM</div>
                 </div>
                 <p class="form-note">
-                    * Formularz jest przykładowy – możesz dostosować pola i sposób wysyłki do swojego systemu rezerwacji.
+                    * Formularz jest przykładowy – w realnym wdrożeniu dane mogą być wysyłane
+                    na e‑mail lub do systemu rezerwacji.
                 </p>
             </div>
 
+            <!-- Правая колонка с формой и простой валидацией -->
             <div>
                 <form id="booking-form" novalidate>
                     <div class="form-row">
@@ -851,6 +871,7 @@
                         <div>
                             <label for="date">Preferowany dzień</label>
                             <input id="date" name="date" type="date">
+                            <div class="form-error" data-error-for="date"></div>
                         </div>
                     </div>
 
@@ -869,10 +890,10 @@
         </div>
     </section>
 
-    <!-- Подвал с копирайтом и быстрыми ссылками -->
+    <!-- Описание: подвал с копирайтом и быстрыми ссылками -->
     <footer>
         <div class="container footer-inner">
-            <div>© 2026 SALON BEAUTY. Wszystkie prawa zastrzeżone.</div>
+            <div>© 2026 SALON BEAUTY – strona pokazowa dla portfolio.</div>
             <div class="footer-links">
                 <a href="#services">Usługi</a>
                 <a href="#pricing">Cennik</a>
@@ -881,45 +902,42 @@
         </div>
     </footer>
 
-    <!-- Небольшой скрипт: плавный скролл и простая валидация формы -->
     <script>
-        // Автор: Frean_zy
-
-        // Функция для плавного скролла к секции по атрибуту data-scroll
+        // Описание: плавный скролл к секциям по клику на элементы с атрибутом data-scroll
         document.querySelectorAll("[data-scroll]").forEach(function (btn) {
             btn.addEventListener("click", function () {
-                // Берём селектор из атрибута
-                var targetSelector = btn.getAttribute("data-scroll");
-                var target = document.querySelector(targetSelector);
+                var selector = btn.getAttribute("data-scroll");
+                var target = document.querySelector(selector);
                 if (target) {
                     target.scrollIntoView({ behavior: "smooth" });
                 }
             });
         });
 
-        // Простая валидация формы бронирования без отправки на сервер
+        // Описание: упрощённая валидация формы без отправки на сервер
         var form = document.getElementById("booking-form");
 
         form.addEventListener("submit", function (event) {
-            event.preventDefault(); // Отменяем стандартную отправку формы
+            event.preventDefault(); // блокируем стандартную отправку
 
-            // Очищаем возможные прошлые сообщения об ошибках
+            // Сбрасываем прошлые сообщения об ошибках
             clearErrors();
 
-            // Считываем значения полей
+            // Забираем значения полей
             var name = form.name.value.trim();
             var phone = form.phone.value.trim();
             var service = form.service.value;
+            var date = form.date.value;
 
             var hasError = false;
 
-            // Проверяем поле "Имя"
+            // Проверяем имя
             if (!name) {
                 showError("name", "Podaj imię.");
                 hasError = true;
             }
 
-            // Проверяем поле "Телефон" (минимальная длина для примера)
+            // Проверяем телефон по минимальной длине
             if (!phone || phone.length < 6) {
                 showError("phone", "Podaj poprawny numer telefonu.");
                 hasError = true;
@@ -931,26 +949,32 @@
                 hasError = true;
             }
 
+            // Дата не обязательна, но можно подсветить пустое поле подсказкой
+            if (!date) {
+                showError("date", "Możesz wskazać preferowany dzień (opcjonalnie).");
+            }
+
             // Если есть ошибки, выводим общее сообщение и не продолжаем
             if (hasError) {
                 showError("form", "Sprawdź poprawność danych w formularzu.");
                 return;
             }
 
-            // Для демо просто выводим alert и очищаем форму
-            alert("Dziękujemy za zgłoszenie! Skontaktujemy się z Tobą, aby potwierdzić termin wizyty.");
+            // Если всё хорошо, показываем простое подтверждение
+            alert("Dziękujemy za zgłoszenie! Skontaktujemy się, aby potwierdzić termin wizyty.");
             form.reset();
+            clearErrors();
         });
 
-        // Вспомогательная функция для вывода текста ошибки под нужным полем
+        // Описание: выводит текст ошибки под нужным полем
         function showError(fieldName, message) {
-            var errorElement = document.querySelector('[data-error-for="' + fieldName + '"]');
-            if (errorElement) {
-                errorElement.textContent = message;
+            var el = document.querySelector('[data-error-for="' + fieldName + '"]');
+            if (el) {
+                el.textContent = message;
             }
         }
 
-        // Вспомогательная функция для очистки всех сообщений об ошибках
+        // Описание: очищает все сообщения об ошибках в форме
         function clearErrors() {
             document.querySelectorAll(".form-error").forEach(function (el) {
                 el.textContent = "";
